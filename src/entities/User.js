@@ -1,6 +1,6 @@
  export class User{
     constructor(name, username, password){
-        if(new.target === Usuario){
+        if(new.target === User){
             throw new Error("This is an abstract class");
         }
 

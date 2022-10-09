@@ -1,38 +1,8 @@
-export class Product {
-    constructor(name, basePrice, cost, availability, taxes) {
-        if (new.target === Product) {
-           throw new Error("This is an abstract class");
-        }
+import { PreparedProduct } from "./PreparedProduct.js"
 
-        if(typeof name != "string" || name == undefined){
-            throw new Error("Invalid name product");
-        }else{
-            this._name = name;
-        }
-
-        if(typeof basePrice != "number" || basePrice == undefined){
-            throw new Error("Invalid base price product");
-        }else{
-            this._basePrice = basePrice;
-        }
-
-        if(typeof cost != "number" || cost == undefined){
-            throw new Error("Invalid cost product");
-        }else{
-            this._cost = cost;
-        }
-
-        if(typeof availability != "boolean" || availability == undefined){
-            throw new Error("Invalid availability product");
-        }else{
-            this._availability = availability;
-        }
-
-        if(typeof taxes != "number" || taxes == undefined){
-            throw new Error("Invalid taxes product");
-        }else{
-            this._taxes = taxes;
-        }
+export class PreparedDessert extends PreparedProduct{
+    constructor(name, basePrice, cost, availability, ingredients, taxes){
+        super(name, basePrice, cost, availability, ingredients, taxes)
     }
 
     get name(){
@@ -83,6 +53,18 @@ export class Product {
         }
     }
 
+    get ingredients(){
+        return this._ingredients;
+    }
+
+    set ingredients(value){
+        if(value == undefined || typeof value !== "object"){
+            throw Error ("Invalid ingredients producto")
+        }else{
+            this._ingredients = value;
+        }
+    }
+
     get taxes(){
         return this._taxes;
     }
@@ -94,4 +76,5 @@ export class Product {
             this._taxes = value;
         }
     }
+
 }
