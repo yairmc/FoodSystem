@@ -1,5 +1,5 @@
-import { DATE, FLOAT, DATE } from 'sequelize';
-import { sequelize } from "../config/connection"
+import { DATE, FLOAT } from 'sequelize';
+import { sequelize } from "../config/connection.js"
 
 export const Ticket = sequelize.define("ticket", {
     // order campo con relacion a Order

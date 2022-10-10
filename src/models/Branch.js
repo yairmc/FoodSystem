@@ -1,5 +1,5 @@
-import { STRING } from 'sequelize';
-import { sequelize } from "../config/connection"
+import { BIGINT, STRING } from 'sequelize';
+import { sequelize } from "../config/connection.js"
 
 
 export const Branch = sequelize.define("branch", {
