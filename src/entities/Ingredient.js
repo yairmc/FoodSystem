@@ -1,5 +1,5 @@
 export class Ingredient {
-    constructor(name, availableUnits){
+    constructor(name, stock){
         if (typeof name != "string" || name == undefined){
             throw Error ("Invalid name ingredient")
         }
@@ -7,10 +7,10 @@ export class Ingredient {
             this._name = name;
         }
 
-        if(typeof availableUnits != "number" || availableUnits  == undefined){
-            throw Error ("Invalid units")
+        if(typeof stock != "number" || stock  == undefined){
+            throw Error ("Invalid stock")
         }else{
-            this._availableUnits = availableUnits;
+            this._stock = stock;
         }
     }
 
@@ -26,15 +26,15 @@ export class Ingredient {
         }
     }
 
-    get availableUnits(){
-        return this._availableUnits;
+    get stock(){
+        return this._stock;
     }
 
-    set availableUnits(value){
+    set stock(value){
         if(value == undefined || typeof value !== "number"){
-            throw Error ("Invalid units")
+            throw Error ("Invalid stock")
         }else{
-            this._availableUnits = value;
+            this._stock = value;
         }
     }
 }

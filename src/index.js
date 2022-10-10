@@ -1,18 +1,29 @@
-import { Administrador } from "./Entidades/Administrador.js";
-import { Usuario } from "./Entidades/Usuario.js"
-import {Sucursal} from "./Entidades/Sucursal.js"
-import {Ticket} from "./Entidades/Ticket.js"
+import {Ingredient} from "./entities/Ingredient.js"
+import {PackagingProduct} from "./entities/PackagingProduct.js"
+import {PackagedDessert} from "./entities/PackagedDessert.js"
+import {PreparedDessert} from "./entities/PreparedDessert.js"
+import {PreparedDrinks} from "./entities/PreparedDrinks.js"
+import {OrderProduct} from "./entities/OrderProduct.js"
+import { Order } from "./entities/Order.js"
+import { Waiter } from "./entities/Waiter.js"
 
-const admin = new Administrador("Manuel", "ManuelVzla03", "manuel123");
-const admin2 = new Administrador("Jesus", "ManuelVzla03", "manuel123");
-const admin3= new Administrador("Blanca", "ManuelVzla03", "manuel123");  
+const i1 = new Ingredient("Leche", 10);
+const i2 = new Ingredient("Soda", 4);
+const i3 = new Ingredient("Huevos", 5);
+const i4 = new Ingredient("Harina", 12);
 
-const suc = new Sucursal("KFC", "Miguel aleman, sin numero");
+const w = new Waiter("Manuel", "manuelVzla", "123");
 
-const d = new Date();
+const ingredients = [i1, i2]
 
-const t = new Ticket(d, 100, 50, suc)
+const p = new PreparedDrinks("Michelada", 60, 20, true, ingredients, 10, 40);
+const p2 = new PreparedDrinks("Cuba", 50, 15, true, ingredients, 10, 20);
 
-const listaAdmins = [admin, admin2, admin3]
+const op = new OrderProduct(p, 2, "Sin cerveza");
+const op2 = new OrderProduct(p2, 1, "Sin tajin");
 
-console.log( listaAdmins[2]);
+const listOp = [op, op2];
+
+const o = new Order("En espera", listOp, w);
+
+console.log(o);
