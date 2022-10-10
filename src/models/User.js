@@ -1,5 +1,5 @@
-import { CHAR, STRING, DATE, INTEGER } from 'sequelize';
-import { sequelize } from "../config/connection"
+import { CHAR, STRING, INTEGER } from 'sequelize';
+import { sequelize } from "../config/connection.js"
 
 export const User = sequelize.define("user", {
     idUser:{
@@ -22,4 +22,4 @@ export const User = sequelize.define("user", {
         type: CHAR(50),
         allowNull: false
     }
-})
+});

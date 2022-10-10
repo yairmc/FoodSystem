@@ -1,4 +1,5 @@
 import { dbConnection } from "../config/connection.js";
+import {User, Order, OrderProduct, Product, Table, Ticket, Branch, PackagingProduct, PreparedProduct, Ingredients,  } from "./BarrelFile.js";
 const main=async () =>{
     try {
         await dbConnection();
@@ -6,5 +7,4 @@ const main=async () =>{
         console.log(error);
     }
 }
-
 main();

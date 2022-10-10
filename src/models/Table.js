@@ -1,5 +1,5 @@
-import { BOOLEAN, INTEGER } from 'sequelize';
-import { sequelize } from "../config/connection"
+import { BOOLEAN, INTEGER,BIGINT } from 'sequelize';
+import { sequelize } from "../config/connection.js"
 
 export const Table = sequelize.define("table", {
     idTable: {

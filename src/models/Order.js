@@ -1,5 +1,5 @@
 import { BOOLEAN, FLOAT} from 'sequelize';
-import { sequelize } from "../config/connection"
+import { sequelize } from "../config/connection.js"
 
 export const Order = sequelize.define('order', {
     total: { type: FLOAT(10,2) },

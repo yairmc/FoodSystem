@@ -1,8 +1,8 @@
 import { INTEGER, STRING } from 'sequelize';
-import { sequelize } from "../config/connection"
+import { sequelize } from "../config/connection.js"
 
 
-export const PackingProducts = sequelize.define('packingProducts', {
+export const PackagingProduct = sequelize.define('packagingProduct', {
     name: { type: STRING(50) },
     stock: { type: INTEGER }
 })
