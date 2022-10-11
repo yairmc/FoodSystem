@@ -6,6 +6,7 @@ import {PreparedDrinks} from "./entities/PreparedDrinks.js"
 import {OrderProduct} from "./entities/OrderProduct.js"
 import { Order } from "./entities/Order.js"
 import { Waiter } from "./entities/Waiter.js"
+import { Table} from "./entities/Table.js"
 
 import {User,Role} from "./models/BarrelFile.js"
 
@@ -59,3 +60,4 @@ const main = async()=>{
 }
 
 main();
+
