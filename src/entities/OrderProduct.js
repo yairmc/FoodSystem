@@ -4,7 +4,7 @@ export class OrderProduct{
             throw new Error("Invalid product");
         }else{
             this._product = product;
-            this._amount = (this._product.basePrice * 2);
+            this._amount = (this._product.basePrice * quantity);
         }
 
         if(typeof quantity != "number" || quantity == undefined){
