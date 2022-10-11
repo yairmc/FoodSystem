@@ -1,10 +1,22 @@
-import { DATE, FLOAT } from 'sequelize';
+import { DATE, FLOAT, INTEGER } from 'sequelize';
 import { sequelize } from "../config/connection.js"
+import { Branch } from './Branch.js';
+import { Order } from './Order.js';
 
 export const Ticket = sequelize.define("ticket", {
-    // order campo con relacion a Order
     date: { type: DATE },
     paymentAmoutn: { type: FLOAT(10, 2) },
     paymentReturn: { type: FLOAT(10, 2) },
-    // sucursal campo con relacion a Branch
+    idBranch: { type: INTEGER },
+    idOrder: { type: INTEGER }
+});
+
+
+Ticket.hasOne(Branch, {
+    foreignKey: 'idBranch',
+})
+
+
+Ticket.hasMany(Order, {
+    foreignKey: 'idOrder',
 })

@@ -4,6 +4,12 @@ import { ProductIngredient } from './ProductIngredient.js';
 
 
 export const Product = sequelize.define("product", {
+    idProduct: {
+        type: INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        unique: true
+    },
     name: { type: STRING(50) },
     basePrice: { type: INTEGER },
     cost: { type: INTEGER },
