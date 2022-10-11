@@ -1,5 +1,5 @@
 import { dbConnection } from "../config/connection.js";
-import {User, Order, OrderProduct, Product, Table, Ticket, Branch, PackagingProduct, PreparedProduct, Ingredients,  } from "./BarrelFile.js";
+import {User, Role  } from "./BarrelFile.js";
 const main=async () =>{
     try {
         await dbConnection();

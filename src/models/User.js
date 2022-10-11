@@ -2,11 +2,11 @@ import { CHAR, STRING, INTEGER } from 'sequelize';
 import { sequelize } from "../config/connection.js"
 
 export const User = sequelize.define("user", {
-    idUser:{
+    idUser: {
         type: INTEGER,
-        primaryKey:true,
-        autoIncrement:true,
-        unique:true
+        primaryKey: true,
+        autoIncrement: true,
+        unique: true
     },
     name: {
         type: STRING(50),
@@ -21,5 +21,10 @@ export const User = sequelize.define("user", {
     password: {
         type: CHAR(50),
         allowNull: false
-    }
+    },
+    idRole: {
+        type: INTEGER,
+        allowNull:false,
+    },
 });
+
