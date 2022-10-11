@@ -43,7 +43,7 @@ const addNewUser = async () => {
     const userAux = await User.create(
         {
             name: "Hector Zapata",
-            userName: "DianaLover",
+            userName: "HectorZ",
             password: "password",
             idRole: 1
         }
