@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "node ./src/models/index.js",
+    "start": "node ./src/index.js",
     "test": "jest"
   },
   "keywords": [],
