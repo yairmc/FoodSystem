@@ -1,4 +1,5 @@
 import { User } from "./User.js";
+import { Role } from "./Role.js";
 import { Order } from "./Order.js";
 import { OrderProduct } from "./OrderProduct.js";
 import { Product } from "./Product.js";
@@ -11,6 +12,7 @@ import { Ingredients } from "./Ingredients.js"
 
 export {
     User,
+    Role,
     Order,
     OrderProduct,
     Product,
