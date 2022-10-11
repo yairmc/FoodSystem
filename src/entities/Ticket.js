@@ -1,11 +1,11 @@
 
 export class Ticket{
     constructor(date, paymentAmount, paymentReturn, sucursal){
-       // if(typeof orden != "Orden" || orden == undefined){
-           // throw Error ("La orden asignada al ticket es invalida");
-      //  }else{
-           // this._orden = orden
-       // }
+       if(typeof orden != "Orden" || orden == undefined){
+            throw Error ("Invalid order");
+        }else{
+           this._orden = orden
+        }
 
         if(typeof date != "object" || date == undefined){
             throw Error ("Invalid date ticket");

@@ -2,7 +2,7 @@ import { PreparedProduct } from "./PreparedProduct.js"
 
 export class PreparedDrinks extends PreparedProduct{
     constructor(name, basePrice, cost, availability, ingredients, taxes){
-        super(name, basePrice, cost, availability, ingredients, taxesw)
+        super(name, basePrice, cost, availability, ingredients, taxes)
     }
 
     get name(){

@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-export const sequelize = new Sequelize("foodStore", "root", "root", {
+export const sequelize = new Sequelize("foodStore", "root", "root1234", {
     host: "localhost",
     dialect: "mysql"
 });
@@ -10,6 +10,6 @@ export const dbConnection = async () => {
         const connection = await sequelize.sync({ alert: true });
         if (connection) console.log('Database Connected');
     } catch (error) {
-        console.log("error en la coneccion");
+        console.log("Error en la coneccion");
     }
 }

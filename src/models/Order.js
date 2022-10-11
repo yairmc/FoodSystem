@@ -7,6 +7,6 @@ export const Order = sequelize.define('order', {
     state: { type: BOOLEAN },
     // orderProduct campo con relacion a orderProducts
     // waiter campo con relacion a user
-
+    
 
 });
