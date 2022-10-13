@@ -7,7 +7,7 @@ export const sequelize = new Sequelize("foodStore", "root", "root", {
 
 export const dbConnection = async () => {
     try {
-        const connection = await sequelize.sync({ alert: true });
+        const connection = await sequelize.sync({ force: true });
         if (connection) console.log('Database Connected');
     } catch (error) {
         console.log("error en la coneccion");

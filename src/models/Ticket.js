@@ -9,14 +9,4 @@ export const Ticket = sequelize.define("ticket", {
     paymentReturn: { type: FLOAT(10, 2) },
     idBranch: { type: INTEGER },
     idOrder: { type: INTEGER }
-});
-
-
-Ticket.hasOne(Branch, {
-    foreignKey: 'idBranch',
-})
-
-
-Ticket.hasMany(Order, {
-    foreignKey: 'idOrder',
-})
+},{ timestamps: false });

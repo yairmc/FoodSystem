@@ -10,10 +10,5 @@ export const Ingredient = sequelize.define("ingredient", {
         unique: true
     },
     name: { type: STRING(50) },
-    stock: { type: INTEGER }
-})
-ProductIngredient.hasMany(Ingredient)
-
-Ingredient.belongsTo(ProductIngredient,{
-    foreignKey: 'idIngredient'
-})
+    stock: { type: INTEGER },
+},{ timestamps: false })

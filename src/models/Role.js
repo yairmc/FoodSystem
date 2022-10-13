@@ -13,9 +13,5 @@ export const Role = sequelize.define("role", {
         type: STRING(50),
         unique: true,
         allowNull: false,
-    }
-});
-
-Role.hasOne(User, {
-    foreignKey: 'idRole',
-})
+    },
+},{ timestamps: false });

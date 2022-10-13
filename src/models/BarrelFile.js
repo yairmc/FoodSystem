@@ -6,8 +6,6 @@ import { Product } from "./Product.js";
 import { Table } from "./Table.js"
 import { Ticket } from "./Ticket.js"
 import { Branch } from "./Branch.js"
-import { PackagingProduct } from "./PackagingProduct.js"
-import { PreparedProduct } from "./PreparedProduct.js"
 import { Ingredient } from "./Ingredient.js"
 import {ProductIngredient} from"./ProductIngredient.js"
 
@@ -21,7 +19,5 @@ export {
     Table,
     Ticket,
     Branch,
-    PackagingProduct,
-    PreparedProduct,
     Ingredient
 };

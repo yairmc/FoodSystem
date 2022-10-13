@@ -11,4 +11,4 @@ export const Branch = sequelize.define("branch", {
     },
     sucursarName: { type: STRING(50) },
     sucursalAdress: { type: STRING(50) }
-})
+},{ timestamps: false })
