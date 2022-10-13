@@ -1,5 +1,6 @@
 import { dbConnection } from "../config/connection.js";
-import {User, Role  } from "./BarrelFile.js";
+import "./BarrelFile.js";
+import "./asociations.js"
 const main=async () =>{
     try {
         await dbConnection();

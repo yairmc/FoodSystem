@@ -2,7 +2,7 @@ import { CHAR, STRING, INTEGER } from 'sequelize';
 import { sequelize } from "../config/connection.js"
 
 export const User = sequelize.define("user", {
-    idUser: {
+    id: {
         type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -26,5 +26,5 @@ export const User = sequelize.define("user", {
         type: INTEGER,
         allowNull:false,
     },
-});
+},{ timestamps: false });
 

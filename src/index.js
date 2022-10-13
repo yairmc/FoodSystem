@@ -1,12 +1,4 @@
-import {Ingredient} from "./entities/Ingredient.js"
-import {PackagingProduct} from "./entities/PackagingProduct.js"
-import {PackagedDessert} from "./entities/PackagedDessert.js"
-import {PreparedDessert} from "./entities/PreparedDessert.js"
-import {PreparedDrinks} from "./entities/PreparedDrinks.js"
-import {OrderProduct} from "./entities/OrderProduct.js"
-import { Order } from "./entities/Order.js"
-import { Waiter } from "./entities/Waiter.js"
-import { Table} from "./entities/Table.js"
+import {Ingredient, Order, OrderProduct, PreparedDrinks, User, Waiter} from "./entities/BarrelFile/.js"
 
 import {User,Role} from "./models/BarrelFile.js"
 
