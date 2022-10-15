@@ -8,5 +8,6 @@ const PORT = 3000;
 const HOST = "localhost";
 
 app.listen(PORT, HOST, () => {
+    console.clear();
     console.log("Server running");
 })
