@@ -1,6 +1,7 @@
 import RouterApp from "./routes/router.routes.js";
 import express from "express";
 const app = express();
+
 app.use("/", RouterApp);
 
 const PORT = 3000;
