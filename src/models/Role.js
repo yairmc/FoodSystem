@@ -8,7 +8,7 @@ export const Role = sequelize.define("role", {
         autoIncrement: true,
         unique: true
     },
-    nameRole: {
+    name: {
         type: STRING(50),
         unique: true,
         allowNull: false,
