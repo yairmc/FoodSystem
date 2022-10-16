@@ -1,24 +1,25 @@
-import { User } from "../entities/User.js";
 import { User as ModelUser } from "../models/User.js";
+import { Administrator, Waiter, Kitchen } from "../entities/BarrelFile.js";
 
-export const addUser = async (user) => {
+const addUser = async (user) => {
     try {
-        const { name, userName, password, idRole } = user;
+        const { _name, _username, _password, _idRole } = user;
         const userAux = await ModelUser.create(
             {
-                name,
-                userName,
-                password,
-                idRole
+                name: _name,
+                userName: _username,
+                password: _password,
+                idRole: _idRole,
+                roleIdRole: _idRole //luego se quitara
             }
         );
-        return userAux;
+        return castUser(userAux);
     } catch (error) {
         return error;
     }
 };
 
-export const getAllUsers = async () => {
+const getAllUsers = async () => {
     try {
         const users = await ModelUser.findAll({})
         return users;
@@ -27,61 +28,86 @@ export const getAllUsers = async () => {
     }
 };
 
-export const getUserById = async (id) => {
+const getUserById = async (id) => {
     try {
         let userAux;
         const user = await ModelUser.findOne({
             where: { id }
         });
         if (!user) return new Error("Error, this user doesn't exist");
-        userAux = new User(user.name, user.userName, user.password, user.idRole);
+        userAux = castUser(user);
         return userAux;
     } catch (error) {
         return error;
     }
 };
 
-export const getUserByUsername = async (userName) => {
+const getUserByUsername = async (userName) => {
     try {
         let userAux;
         const user = await ModelUser.findOne({
             where: { userName }
         });
         if (!user) return new Error("Error, this user doesn't exist");
-        userAux = new User(user.name, user.userName, user.password, user.idRole);
+        userAux = castUser(user);
         return userAux;
     } catch (error) {
         return error;
     }
 };
 
-export const updateUser = async (user, id) => {
+const updateUser = async (user, id) => {
     try {
-        const { name, userName, password, idRole } = user;
+        const { _name, _username, _password, _idRole } = user;
         const userAux = await ModelUser.update(
             {
-                name,
-                userName,
-                password,
-                idRole
+                name: _name,
+                userName: _username,
+                password: _password,
+                idRole: _idRole,
+                roleIdRole: _idRole //luego se quitara
             }, {
-            where: { id }
+            where: {
+                id
+            }
         });
-        return userAux;
+        if (userAux[0] === 0) {
+            return { msg: "User wasn't updated" };
+        } else {
+            return { msg: "User was updated" };
+        }
     } catch (error) {
         return error;
     }
 };
 
-export const deleteUser = async (id) => {
+const deleteUser = async (id) => {
     try {
         const deleteUser = await ModelUser.destroy(
             {
                 where: { id }
             }
         );
-        return deleteUser;
+        if (deleteUser) {
+            return { msg: "User was deleted" };
+        } else {
+            return { msg: "User wasn't deleted" };
+        }
     } catch (error) {
         return error;
     }
 };
+
+const castUser = (user) => {
+    let userAux;
+    if (user.idRole === 1) {
+        userAux = new Administrator(user.name, user.userName, user.password, user.idRole);
+    } else if (user.idRole === 2) {
+        userAux = new Waiter(user.name, user.userName, user.password, user.idRole);
+    } else if (user.idRole === 3) {
+        userAux = new Kitchen(user.name, user.userName, user.password, user.idRole);
+    }
+    return userAux;
+}
+
+export { addUser, updateUser, getAllUsers, getUserById, getUserByUsername, deleteUser };
