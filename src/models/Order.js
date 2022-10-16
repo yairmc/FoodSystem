@@ -11,4 +11,6 @@ export const Order = sequelize.define('order', {
     total: { type: FLOAT(10, 2) },
     subTotal: { type: FLOAT(10, 2) },
     state: { type: BOOLEAN },
-},{ timestamps: false });
+},{
+    tableName:'order',
+     timestamps: false });
