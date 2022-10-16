@@ -12,13 +12,13 @@ Ticket.belongsTo(Branch);
 User.hasOne(Order);
 Order.belongsTo(User);
 
+Table.hasOne(Order);
+Order.belongsTo(Table)
+
 // User
 Role.hasOne(User);
 User.belongsTo(Role);
 
-// Table 
-Order.hasOne(Table);
-Table.belongsTo(Order);
 
 // OrderProduct 
 Order.hasOne(OrderProduct);

@@ -3,7 +3,7 @@ import { sequelize } from "../config/connection.js"
 
 
 export const Product = sequelize.define("product", {
-    idProduct: {
+    id: {
         type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -14,6 +14,9 @@ export const Product = sequelize.define("product", {
     cost: { type: INTEGER },
     availability: { type: BOOLEAN },
     taxes: { type: FLOAT(10, 2) },
-    typeProduct: { type: STRING(50) },
+    type: { type: STRING(50) },
     stock: { type: INTEGER }
-},{ timestamps: false });
+}, {
+    tableName: 'product',
+    timestamps: false
+});

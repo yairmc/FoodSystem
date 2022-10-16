@@ -1,14 +1,17 @@
-import { BIGINT, INTEGER, STRING } from 'sequelize';
+import { INTEGER, STRING } from 'sequelize';
 import { sequelize } from "../config/connection.js"
 
 
-export const Branch = sequelize.define("branch", {
-    idBranch: {
+export const Branch = sequelize.define("Branch", {
+    id: {
         type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
         unique: true
     },
-    sucursarName: { type: STRING(50) },
-    sucursalAdress: { type: STRING(50) }
-},{ timestamps: false })
+    branchName: { type: STRING(50) },
+    branchAdress: { type: STRING(50) }
+}, {
+    tableName: 'branch',
+    timestamps: false,
+})

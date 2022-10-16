@@ -1,9 +1,8 @@
-import { User } from "./User.js"
 import { sequelize } from "../config/connection.js"
 import { INTEGER, STRING } from "sequelize";
 
 export const Role = sequelize.define("role", {
-    idRole: {
+    id: {
         type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -14,4 +13,7 @@ export const Role = sequelize.define("role", {
         unique: true,
         allowNull: false,
     },
-},{ timestamps: false });
+}, {
+    tableName: 'role',
+    timestamps: false
+});
