@@ -1,9 +1,8 @@
 import { INTEGER, STRING } from 'sequelize';
 import { sequelize } from "../config/connection.js"
-import { ProductIngredient } from './ProductIngredient.js';
 
 export const Ingredient = sequelize.define("ingredient", {
-    idIngredient: {
+    id: {
         type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -11,4 +10,7 @@ export const Ingredient = sequelize.define("ingredient", {
     },
     name: { type: STRING(50) },
     stock: { type: INTEGER },
-},{ timestamps: false })
+}, {
+    tableName: 'ingredient',
+    timestamps: false
+})
