@@ -5,21 +5,9 @@ const userRouter = express.Router();
 const { addUser, deleteUser, getAllUsers, getUserById, getUserByUsername, updateUser } = userController;
 userRouter.get("/users", getAllUsers);
 userRouter.post("/users", addUser);
-userRouter.get("/users/username", );
-userRouter.get("/users/:id", (req, res) => {
-    res.json({
-        message: "Get user by id"
-    })
-});
-userRouter.delete("/users/:id", (req, res) => {
-    res.json({
-        message: "Delete user by id"
-    })
-});
-userRouter.put("/users/:id", (req, res) => {
-    res.json({
-        message: "Update user by id"
-    })
-});
+userRouter.get("/users/username", getUserByUsername);
+userRouter.get("/users/:id", getUserById);
+userRouter.delete("/users/:id", deleteUser);
+userRouter.put("/users/:id", updateUser);
 
 export default userRouter;
