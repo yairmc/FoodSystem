@@ -11,6 +11,7 @@ export class UserRepository {
 
     async update (id,user) {
         if (id === undefined){
+
             throw new Error('Undefined ID')
         }
 

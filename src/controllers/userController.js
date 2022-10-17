@@ -1,103 +1,108 @@
 import { User as ModelUser } from "../models/User.js";
 import { Administrator, Waiter, Kitchen } from "../entities/BarrelFile.js";
+import { UserRepository } from "../repositories/Users.repository.js";
+const userRepository = new UserRepository();
 
-const addUser = async (user) => {
+const addUser = async (req, res) => {
     try {
-        const { _name, _username, _password, _idRole } = user;
+        const { name, userName, password, roleId } = req.body;
         const userAux = await ModelUser.create(
             {
-                name: _name,
-                userName: _username,
-                password: _password,
-                roleId: _idRole,
+                name,
+                userName,
+                password,
+                roleId,
             }
         );
-        return castUser(userAux);
+        res.status(200).json(userAux);
     } catch (error) {
-        return error;
+        console.log(error);
+        res.status(500).json({ msg: "Error while adding user" });
     }
 };
 
-const getAllUsers = async () => {
+const getAllUsers = async (req, res) => {
     try {
-        const users = await ModelUser.findAll({})
-        return users;
+        const users = await ModelUser.findAll({});
+        res.status(200).json(users);
     } catch (error) {
-        return error;
+        res.status(500).json({ msg: "Error while querying all users" });
     }
 };
 
-const getUserById = async (id) => {
+const getUserById = async (req, res) => {
     try {
+        const { id } = req.params;
         let userAux;
         const user = await ModelUser.findOne({
             where: { id }
         });
-        if (!user) return new Error("Error, this user doesn't exist");
+        if (!user) return res.status(404).json({ msg: "This user doesn't exist" });
         userAux = castUser(user);
-        return userAux;
+        res.status(200).json(userAux);
     } catch (error) {
-        return error;
+        return res.status(500).json({ msg: "Error while querying user" });
     }
 };
 
-const getUserByUsername = async (userName) => {
+const getUserByUsername = async (req, res) => {
     try {
+        const { username } = req.query;
         let userAux;
         const user = await ModelUser.findOne({
-            where: { userName }
+            where: { userName: username }
         });
-        if (!user) return new Error("Error, this user doesn't exist");
+        if (!user) return res.status(404).json({ msg: "This user doesn't exist" });
         userAux = castUser(user);
-        return userAux;
+        res.status(200).json(userAux);
     } catch (error) {
-        return error;
+        return res.status(500).json({ msg: "Error while querying user by username" });
     }
 };
 
-const updateUser = async (user, id) => {
+const updateUser = async (req, res) => {
     try {
-        const { _name, _username, _password, _idRole } = user;
+        const { id } = req.params;
+        const { name, userName, password, roleId } = req.body;
         const userAux = await ModelUser.update(
             {
-                name: _name,
-                userName: _username,
-                password: _password,
-                roleId: Number(_idRole),
+                name,
+                userName,
+                password,
+                roleId,
             }, {
             where: {
                 id
             }
         });
         if (userAux[0] === 0) {
-            return { msg: "User wasn't updated" };
-        } else {
-            return { msg: "User was updated" };
+            return res.status(404).json({ msg: "This user wasn't updated" });
         }
+        res.status(200).json({ msg: "User updated" });
     } catch (error) {
-        return error;
+        return res.status(500).json({ msg: "Error while updating user" });
     }
 };
 
-const deleteUser = async (id) => {
+const deleteUser = async (req, res) => {
     try {
+        const { id } = req.params;
         const deleteUser = await ModelUser.destroy(
             {
                 where: { id }
             }
         );
-        if (deleteUser) {
-            return { msg: "User was deleted" };
-        } else {
-            return { msg: "User wasn't deleted" };
+        if (!deleteUser) {
+            return res.status(404).json({ msg: "This user wasn't deleted" });
         }
+        res.status(200).json({ msg: "User deleted" });
     } catch (error) {
-        return error;
+        return res.status(500).json({ msg: "Error while deleting user" });
     }
 };
 
 const castUser = (userResult) => {
-    const user= userResult.dataValues;
+    const user = userResult.dataValues;
     let userAux;
     if (user.roleId === 1) {
         userAux = new Administrator(user.name, user.userName, user.password, user.roleId);
