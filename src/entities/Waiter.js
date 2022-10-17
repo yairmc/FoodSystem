@@ -1,13 +1,8 @@
 import { User } from "./User.js"
 
 export class Waiter extends User {
-    constructor(name, username, password, idRole) {
-        super(name, username, password)
-        if (typeof idRole != "number") {
-            throw Error("Invalid id Role");
-        } else {
-            this._idRole = idRole;
-        }
+    constructor(name, username, password, roleId) {
+        super(name, username, password, roleId)
     }
 
     get name() {
@@ -61,7 +56,7 @@ export class Waiter extends User {
             name: this._name,
             username: this._username,
             password: this._password,
-            idRole: this._idRole       
+            roleId: this._roleId       
         }
     }
 }

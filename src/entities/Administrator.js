@@ -1,13 +1,8 @@
 import { User } from "./User.js"
 
 export class Administrator extends User {
-    constructor(name, username, password, idRole) {
-        super(name, username, password)
-        if (typeof idRole != "number") {
-            throw Error("Invalid id Role");
-        } else {
-            this._idRole = idRole;
-        }
+    constructor(name, username, password, roleId) {
+        super(name, username, password, roleId)
     }
 
     get name() {
@@ -45,14 +40,14 @@ export class Administrator extends User {
             this._password = value;
         }
     }
-    get idRole() {
-        return this._idRole;
+    get roleId() {
+        return this._roleId;
     }
-    set idRole(value) {
+    set roleId(value) {
         if (typeof value != "number") {
             throw Error("Invalid id Role");
         } else {
-            this._idRole = value;
+            this._roleId = value;
         }
     }
 
@@ -61,7 +56,7 @@ export class Administrator extends User {
             name: this._name,
             username: this._username,
             password: this._password,
-            idRole: this._idRole       
+            roleId: this._roleId       
         }
     }
 

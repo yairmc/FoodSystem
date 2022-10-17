@@ -1,7 +1,7 @@
 
 
 export class Order{
-    constructor(state, orderProduct, table, waiter){
+    constructor(state, table, waiter){
         
         if(typeof state != "string" || state == undefined){
             throw new Error("Invalid state");
@@ -9,27 +9,28 @@ export class Order{
             this._state = state;
         }
 
-        if(typeof orderProduct != "object" || orderProduct == undefined){
-            throw new Error("Invalid list order product");
-        }else{
-            this._orderProduct = orderProduct;
+        this._subtotal = 0;
+        this._total = 0;
 
-            let subtotal = 0;
+        // if(typeof orderProduct != "object" || orderProduct == undefined){
+        //     throw new Error("Invalid list order product");
+        // }else{
+        //     this._orderProduct = orderProduct;
+
+        //     let subtotal = 0;
             
-            this._orderProduct.forEach(element => {
-                subtotal += element._amount;
-            });
+        //     this._orderProduct.forEach(element => {
+        //         subtotal += element._amount;
+        //     });
 
-            this._subtotal = subtotal;
+        //     this._subtotal = subtotal;
 
-            let total = 0;
-            this._orderProduct.forEach(element => {
-                total += element._amount * (1 + element._product._taxes);
-            });
-            this._total = total;
-        }
-
-
+        //     let total = 0;
+        //     this._orderProduct.forEach(element => {
+        //         total += element._amount * (1 + element._product._taxes);
+        //     });
+        //     this._total = total;
+        // }
 
         if(typeof table != "object" || table == undefined){
             throw new Error("Invalid table product");
@@ -47,7 +48,6 @@ export class Order{
     toPersistenceObject(){
         return {
             state: this._state,
-            orderProduct: this._orderProduct,
             total: this._total,
             subtotal: this._subtotal,
             table: this._table,

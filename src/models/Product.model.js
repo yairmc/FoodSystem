@@ -2,7 +2,7 @@ import { BOOLEAN, FLOAT, INTEGER, STRING } from 'sequelize';
 import { sequelize } from "../config/connection.js"
 
 
-export const Product = sequelize.define("product", {
+export const ProductModel = sequelize.define("product", {
     id: {
         type: INTEGER,
         primaryKey: true,

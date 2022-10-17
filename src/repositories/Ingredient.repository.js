@@ -1,29 +1,29 @@
-import  IngredientsB  from '../entities/Ingredient.js';
-import { Ingredient } from '../models/Ingredients';
+import { Ingredient }  from '../entities/Ingredient.js';
+import { IngredientModel } from '../models/Ingredients.model.js';
 
 export class IngredientRepository {
 
     async create (ingredient) {
-        const result = await Ingredient.create(ingredient._name, ingredient._stock);      
-        
-        return new IngredientsB(result.name, result.stock);
+        const ingredientPO = ingredient.toPersistenceObject();
+        const result = await IngredientModel.create(ingredientPO);      
+        return new Ingredient(result.name, result.stock);
     }
 
-    async update (ingredient) {
-        if (ingredient.id === undefined){
+    async update (id, ingredient) {
+        if (id === undefined){
             throw new Error('Undefined ID')
         }
 
-        const result = await Ingredient.update(ingredient, {
+        const result = await IngredientModel.update({name:ingredient.name, stock:ingredient.stock},{
             where: {
-                id: ingredient.id
+                id: id
             }
         });
         return result;
     }
 
     async delete(id) {
-        const result = await Ingredient.delete({
+        const result = await IngredientModel.destroy({
             where: {
                 id: id
             }
@@ -32,20 +32,28 @@ export class IngredientRepository {
     }
 
     async findOne(id) {
-        const result = await Ingredient.findOne({
+        const result = await IngredientModel.findOne({
             where: {
                 id: id
             }
         });
-        return result;
+        return result.toJSON();
     }
 
     async findAll() {
-        const result = await Ingredient.findAll();
-        return result.map(() => {
-            new IngredientsB(result.name, result.stock)
+        const result = await IngredientModel.findAll({
+            ingredient: ['id'],
+            attributes: ['name', 'stock']
         });
+        return JSON.stringify(result);
     }
+
+    // async findAll() {
+    //     const result = await Ingredient.findAll();
+    //     return result.map(() => {
+    //         new IngredientsB(result.name, result.stock)
+    //     });
+    // }
 
 }
 
