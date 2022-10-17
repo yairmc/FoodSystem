@@ -1,5 +1,5 @@
 export class Product {
-    constructor(name, basePrice, cost, availability, taxes) {
+    constructor(name, basePrice, cost, availability, taxes, type, stock) {
         if (new.target === Product) {
            throw new Error("This is an abstract class");
         }
@@ -32,6 +32,18 @@ export class Product {
             throw new Error("Invalid taxes product");
         }else{
             this._taxes = taxes;
+        }
+
+        if(typeof type != "string" || type == undefined){
+            throw new Error("Invalid type product");
+        }else{
+            this._type = type;
+        }
+
+        if(typeof stock != "number" || stock == undefined){
+            throw new Error("Invalid stock product");
+        }else{
+            this._stock = stock;
         }
     }
 
@@ -95,6 +107,30 @@ export class Product {
         }
     }
 
+    get type(){
+        return this._type;
+    }
+
+    set type(value){
+        if(value == undefined || typeof value !== "string"){
+            throw Error ("Invalid type producto")
+        }else{
+            this._type = value;
+        }
+    }
+
+    get stock(){
+        return this._stock;
+    }
+
+    set stock(value){
+        if(value == undefined || typeof value !== "number"){
+            throw Error ("Invalid stock producto")
+        }else{
+            this._stock = value;
+        }
+    }
+
     toPersistenceObject(){
         return {
             name: this._name,
@@ -102,6 +138,8 @@ export class Product {
             cost: this._cost,   
             availability: this._availability,
             taxes: this._taxes,
+            type: this._type,
+            stock: this._stock
         }
     }
 }

@@ -3,7 +3,7 @@ export default {
 
     database: "foodstore",
     username: "root",
-    password: "root",
+    password: "root1234",
     host: "localhost",
     dialect: "mysql"
 }

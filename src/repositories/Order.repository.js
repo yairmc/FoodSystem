@@ -1,29 +1,29 @@
-import  OrderB  from '../entities/Order.js';
-import { Order } from '../models/Order.js';
+import { Order }  from '../entities/Order.js';
+import { OrderModel } from '../models/Order.model.js';
 
 export class OrderRepository {
 
     async create (order) {
-        const result = await Order.create(order._state, order._orderProduct, order._table, order._waiter);      
-        
-        return new OrderB(result.state, result.orderProduct, result.table, result.waiter);
+        const orderPO = order.toPersistenceObject();
+        const result = await OrderModel.create(orderPO);      
+        return new Order(result.state, result.total, result.subtotal, result.tableId, result.userId);
     }
 
-    async update (order) {
+    async update (id, order) {
         if (order.id === undefined){
             throw new Error('Undefined ID')
         }
 
-        const result = await Order.update(order, {
+        const result = await OrderModel.update({state: order.state, total: order.total, subtotal: order.subtotal, table: order.tableId, waiter: order.userId }, {
             where: {
-                id: order.id
+                id: id
             }
         });
         return result;
     }
 
     async delete(id) {
-        const result = await Order.delete({
+        const result = await OrderModel.destroy({
             where: {
                 id: id
             }
@@ -32,18 +32,19 @@ export class OrderRepository {
     }
 
     async findOne(id) {
-        const result = await Order.findOne({
+        const result = await OrderModel.findOne({
             where: {
                 id: id
             }
         });
-        return result;
+        return result.toJSON();
     }
 
     async findAll() {
-        const result = await Order.findAll();
-        return result.map(() => {
-            new OrderB(result.state, result.orderProduct, result.table, result.waiter)
+        const result = await OrderModel.findAll({
+            order: ['id'],
+            attributes: ['state', 'total', 'subtotal', 'table', 'waiter']
         });
+        return JSON.stringify(result);
     }
 }

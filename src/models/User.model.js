@@ -1,7 +1,7 @@
 import { CHAR, STRING, INTEGER } from 'sequelize';
 import { sequelize } from "../config/connection.js"
 
-export const User = sequelize.define("user", {
+export const UserModel = sequelize.define("user", {
     id: {
         type: INTEGER,
         primaryKey: true,
@@ -10,7 +10,6 @@ export const User = sequelize.define("user", {
     },
     name: {
         type: STRING(50),
-        unique: true,
         allowNull: false
     },
     userName: {

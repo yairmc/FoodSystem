@@ -1,28 +1,30 @@
+
 import { Table, Order, User, Ticket, RoleModel, BranchModel, OrderProduct, Product, ProductIngredient, Ingredient } from "./BarrelFile.js"
 
 
 
+
 // Ticket 
-Order.hasOne(Ticket, {
+OrderModel.hasOne(TicketModel, {
     foreignKey: 'orderId'
 });
-Ticket.belongsTo(Order);
+TicketModel.belongsTo(OrderModel);
 
-BranchModel.hasOne(Ticket, {
+BranchModel.hasOne(TicketModel, {
     foreignKey: 'branchId'
 });
-Ticket.belongsTo(BranchModel);
+TicketModel.belongsTo(BranchModel);
 
-// Order
-User.hasOne(Order, {
+// OrderModel
+UserModel.hasOne(OrderModel, {
     foreignKey: 'userId'
 });
-Order.belongsTo(User);
+OrderModel.belongsTo(UserModel);
 
-Table.hasOne(Order, {
+TableModel.hasOne(OrderModel, {
     foreignKey: 'tableId'
 });
-Order.belongsTo(Table)
+OrderModel.belongsTo(TableModel)
 
 // User
 RoleModel.hasOne(User, {
@@ -31,25 +33,26 @@ RoleModel.hasOne(User, {
 User.belongsTo(RoleModel);
 
 
-// OrderProduct 
-Order.hasOne(OrderProduct, {
+
+// OrderProductModel 
+OrderModel.hasOne(OrderProductModel, {
     foreignKey: 'orderId'
 });
-OrderProduct.belongsTo(Order);
+OrderProductModel.belongsTo(OrderModel);
 
-Product.hasOne(OrderProduct, {
+ProductModel.hasOne(OrderProductModel, {
     foreignKey: 'productId'
 });
-OrderProduct.belongsTo(Product);
+OrderProductModel.belongsTo(ProductModel);
 
-// ProductIngredient 
+// ProductIngredientModel 
 
-Ingredient.hasOne(ProductIngredient, {
+IngredientModel.hasOne(ProductIngredientModel, {
     foreignKey: 'ingredientId'
 })
-ProductIngredient.belongsTo(Ingredient)
+ProductIngredientModel.belongsTo(IngredientModel)
 
-Product.hasOne(ProductIngredient, {
+ProductModel.hasOne(ProductIngredientModel, {
     foreignKey: 'productId'
 });
-ProductIngredient.belongsTo(Product)
+ProductIngredientModel.belongsTo(ProductModel)

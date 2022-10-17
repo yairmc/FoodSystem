@@ -1,7 +1,7 @@
 import { Role }  from '../entities/Role.js';
 import { RoleModel } from '../models/Role.model.js';
 
-class RoleRepository {
+export class RoleRepository {
 
     async create (role) {
         const r = role.toPersistenceObject();
@@ -49,4 +49,4 @@ class RoleRepository {
     }
 }
 
-export { RoleRepository };
+

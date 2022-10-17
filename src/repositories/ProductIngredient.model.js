@@ -1,4 +1,4 @@
-import  { OrderProduct }  from '../entities/OrderProduct.js';
+import  { OrderProduct }  from '../entities/ProductIngredient.js';
 import { OrderProductModel } from '../models/OrderProduct.model.js';
 
 export class OrderProductRepository {
