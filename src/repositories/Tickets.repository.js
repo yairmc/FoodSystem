@@ -6,7 +6,7 @@ export class TicketRepository {
     async create (ticket) {
        const t = ticket.toPersistenceObject();
        const result = await TicketModel.create(t);
-        return new Ticket(result.paymentAmount, result.paymentReturn, result.orderId, result.branchId, result.date);
+       return new Ticket(result.paymentAmount, result.paymentReturn, result.orderId, result.branchId, result.date);
     }
 
     async update (id, ticket) {
@@ -42,7 +42,7 @@ export class TicketRepository {
 
     async findAll() {
         const result = await TableModel.findAll({
-            order: ['id'],
+            ticket: ['id'],
             attributes: ['paymentAmount', 'paymentReturn', 'orderId', 'branchId', 'date']
 
         });

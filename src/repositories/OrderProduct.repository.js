@@ -1,29 +1,29 @@
-import  OrderProductB  from '../entities/OrderProduct.js';
-import { orderProduct } from '../models/OrderProduct.js';
+import  { OrderProduct }  from '../entities/OrderProduct.js';
+import { OrderProductModel } from '../models/OrderProduct.model.js';
 
 export class OrderProductRepository {
 
     async create (orderProducts) {
-        const result = await OrderProducts.create(orderProducts._product, orderProducts._quantity, orderProducts._details);      
-        
-        return new OrderProductB(result.product, result.quantity, result.details);
+        const orderProductPO = orderProducts.toPersistenceObject();
+        const result = await OrderProductModel.create(orderProductPO);     
+        return new OrderProduct(result.quantity, result.details, result.amount, result.order, result.product);
     }
 
-    async update (orderProducts) {
+    async update (id, orderProducts) {
         if (orderProducts.id === undefined){
             throw new Error('Undefined ID')
         }
 
-        const result = await OrderProducts.update(orderProducts, {
+        const result = await OrderProductModel.update({quantity: orderProducts.quantity, details: orderProducts.details, amount: orderProducts.amount, order: orderProducts.order, product: orderProducts.product },{
             where: {
-                id: orderProducts.id
+                id: id
             }
         });
         return result;
     }
 
     async delete(id) {
-        const result = await OrderProducts.delete({
+        const result = await OrderProductModel.destroy({
             where: {
                 id: id
             }
@@ -32,18 +32,19 @@ export class OrderProductRepository {
     }
 
     async findOne(id) {
-        const result = await OrderProducts.findOne({
+        const result = await OrderProductModel.findOne({
             where: {
                 id: id
             }
         });
-        return result;
+        return result.toJSON();
     }
 
     async findAll() {
-        const result = await OrderProducts.findAll();
-        return result.map(() => {
-            new OrderProductB(result.product, result.quantity, result.details)
+        const result = await OrderProductModel.findAll({
+            orderProduct: ['id'],
+            attributes: ['quantity', 'details', 'amount', 'order', 'product']
         });
+        return JSON.stringify(result);
     }
 }

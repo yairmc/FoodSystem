@@ -8,8 +8,15 @@ export const OrderModel = sequelize.define('order', {
         autoIncrement: true,
         unique: true
     },
-    total: { type: FLOAT(10, 2) },
-    subTotal: { type: FLOAT(10, 2) },
+    state: {
+        type: INTEGER
+    },
+    total: { 
+        type: FLOAT(10, 2) 
+    },
+    subTotal: { 
+        type: FLOAT(10, 2) 
+    },
     userId: {
         type: INTEGER,
         allowNull: false
@@ -22,3 +29,10 @@ export const OrderModel = sequelize.define('order', {
     tableName: 'order',
     timestamps: false
 });
+
+// state: this._state,
+// orderProduct: this._orderProduct,
+// total: this._total,
+// subtotal: this._subtotal,
+// table: this._table,
+// waiter: this._waiter 
