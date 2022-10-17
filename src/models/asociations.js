@@ -16,7 +16,9 @@ Table.hasOne(Order);
 Order.belongsTo(Table)
 
 // User
-Role.hasOne(User);
+Role.hasOne(User, {
+    foreingKey: "roleId",
+});
 User.belongsTo(Role);
 
 

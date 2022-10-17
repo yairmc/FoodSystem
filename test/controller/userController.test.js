@@ -8,8 +8,8 @@ describe('Testing userController', () => {
     test('This function must add new user', async () => {
         const adminAux = new Administrator(`user-${v4()}`, `username-${v4()}`, "12345", 1);
         const addUser = await userController.addUser(adminAux);
-        expect(addUser._name).toBe(adminAux.name);
-        expect(addUser._username).toBe(adminAux.username);
+        expect(addUser._name).toBe(adminAux._name);
+        expect(addUser._username).toBe(adminAux._username);
     })
     test('This function must return all users', async () => {
         const users = await userController.getAllUsers();
@@ -32,8 +32,8 @@ describe('Testing userController', () => {
     })
     test('This function must update user by id', async () => {
         const users = await userController.getAllUsers();
-        const adminAux = new Administrator(users[users.length - 1].name, users[users.length - 1].userName, "54321", users[users.length - 1].idRole);
-        const userUpdated = await userController.updateUser(adminAux, users[users.length - 1].id);
+        const adminAux = new Administrator(users[users.length - 1].name, users[users.length - 1].userName, "54321", Number(users[users.length - 1].roleId));
+        const userUpdated = await userController.updateUser(adminAux, Number(users[users.length - 1].id));
         expect(userUpdated.msg).toBe("User was updated");
     })
 })

@@ -9,8 +9,7 @@ const addUser = async (user) => {
                 name: _name,
                 userName: _username,
                 password: _password,
-                idRole: _idRole,
-                roleIdRole: _idRole //luego se quitara
+                roleId: _idRole,
             }
         );
         return castUser(userAux);
@@ -64,8 +63,7 @@ const updateUser = async (user, id) => {
                 name: _name,
                 userName: _username,
                 password: _password,
-                idRole: _idRole,
-                roleIdRole: _idRole //luego se quitara
+                roleId: Number(_idRole),
             }, {
             where: {
                 id
@@ -98,14 +96,15 @@ const deleteUser = async (id) => {
     }
 };
 
-const castUser = (user) => {
+const castUser = (userResult) => {
+    const user= userResult.dataValues;
     let userAux;
-    if (user.idRole === 1) {
-        userAux = new Administrator(user.name, user.userName, user.password, user.idRole);
-    } else if (user.idRole === 2) {
-        userAux = new Waiter(user.name, user.userName, user.password, user.idRole);
-    } else if (user.idRole === 3) {
-        userAux = new Kitchen(user.name, user.userName, user.password, user.idRole);
+    if (user.roleId === 1) {
+        userAux = new Administrator(user.name, user.userName, user.password, user.roleId);
+    } else if (user.roleId === 2) {
+        userAux = new Waiter(user.name, user.userName, user.password, user.roleId);
+    } else if (user.roleId === 3) {
+        userAux = new Kitchen(user.name, user.userName, user.password, user.roleId);
     }
     return userAux;
 }

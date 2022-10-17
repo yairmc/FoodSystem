@@ -21,6 +21,10 @@ export const User = sequelize.define("user", {
     password: {
         type: CHAR(50),
         allowNull: false
+    },
+    roleId: {
+        type: INTEGER,
+        allowNull: false
     }
 }, {
     tableName: 'user',
