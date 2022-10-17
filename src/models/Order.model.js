@@ -1,7 +1,7 @@
 import { BOOLEAN, FLOAT, INTEGER } from 'sequelize';
 import { sequelize } from "../config/connection.js"
 
-export const Order = sequelize.define('order', {
+export const OrderModel = sequelize.define('order', {
     id: {
         type: INTEGER,
         primaryKey: true,

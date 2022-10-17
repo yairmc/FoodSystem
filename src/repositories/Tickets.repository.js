@@ -1,29 +1,29 @@
-import  TicketB  from '../entities/Ticket,js';
-import { Ticket } from '../models/Ticket.js';
+import { Ticket } from '../entities/Ticket,js';
+import { TicketModel } from '../models/Ticket.model.js';
 
 export class TicketRepository {
 
     async create (ticket) {
-        const result = await Ticket.create(ticket._date, ticket._paymentAmount, ticket._paymentReturn, ticket._sucursal);      
-        
-        return new TicketB(result.date, result.paymentAmount, result.paymentReturn, result.sucursal);
+       const t = ticket.toPersistenceObject();
+       const result = await TicketModel.create(t);
+        return new Ticket(result.paymentAmount, result.paymentReturn, result.orderId, result.branchId, result.date);
     }
 
-    async update (ticket) {
-        if (ticket.id === undefined){
+    async update (id, ticket) {
+        if (id === undefined){
             throw new Error('Undefined ID')
         }
 
-        const result = await Ticket.update(ticket, {
+        const result = await TicketModel.update({paymentAmount:ticket.paymentAmount, paymentReturn:ticket.paymentReturn, orderId:ticket.orderId, branchId:ticket.branchId, date:ticket.date}, {
             where: {
-                id: ticket.id
+                id: id
             }
         });
         return result;
     }
 
     async delete(id) {
-        const result = await Ticket.delete({
+        const result = await TicketModel.destroy({
             where: {
                 id: id
             }
@@ -32,18 +32,20 @@ export class TicketRepository {
     }
 
     async findOne(id) {
-        const result = await Ticket.findOne({
+        const result = await TicketModel.findOne({
             where: {
                 id: id
             }
         });
-        return result;
+        return result.toJSON();
     }
 
     async findAll() {
-        const result = await Ticket.findAll();
-        return result.map(() => {
-            new TicketB(result.date, result.paymentAmount, result.paymentReturn, result.sucursal);
+        const result = await TableModel.findAll({
+            order: ['id'],
+            attributes: ['paymentAmount', 'paymentReturn', 'orderId', 'branchId', 'date']
+
         });
+        return JSON.stringify(result);
     }
 }

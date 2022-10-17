@@ -1,29 +1,29 @@
-import  TableB  from '../entities/Table.js';
-import { Table } from '../models/Table.js';
+import { Table  }from '../entities/Table.js';
+import { TableModel} from '../models/Table.model.js';
 
 export class TableRepository {
 
     async create (table) {
-        const result = await Table.create(table._idTable, table._availability, table._dinersNumber);      
-        
-        return new TableB(result.idTable, result.availability, result.dinersNumber);
+        const t = table.toPersistenceObject();
+        const result = await TableModel.create(t);
+        return new Table(result.number, result.availability, result.dinersNumber);
     }
 
-    async update (table) {
-        if (table.id === undefined){
+    async update (id, table) {
+        if (id === undefined){
             throw new Error('Undefined ID')
         }
 
-        const result = await Table.update(table, {
+        const result = await TableModel.update({number:table.number, availability:table.availability, dinersNumber:table.dinersNumber}, {
             where: {
-                id: table.id
+                id: id
             }
         });
         return result;
     }
 
     async delete(id) {
-        const result = await Table.delete({
+        const result = await TableModel.destroy({
             where: {
                 id: id
             }
@@ -32,18 +32,20 @@ export class TableRepository {
     }
 
     async findOne(id) {
-        const result = await Table.findOne({
+        const result = await TableModel.findOne({
             where: {
                 id: id
             }
         });
-        return result;
+        return result.toJSON();
     }
 
     async findAll() {
-        const result = await Table.findAll();
-        return result.map(() => {
-            new TableB(result.idTable, result.availability, result.dinersNumber);
+        const result = await TableModel.findAll({
+            order: ['id'],
+            attributes: ['number', 'availability', 'dinersNumber']
+
         });
+        return JSON.stringify(result);
     }
 }

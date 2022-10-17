@@ -1,7 +1,7 @@
 import { INTEGER, STRING } from "sequelize";
 import { sequelize } from "../config/connection.js";
 
-export const ProductIngredient = sequelize.define("productIngredient", {
+export const ProductIngredientModel = sequelize.define("productIngredient", {
     quantity: { type: INTEGER },
     ingredientId: {
         type: INTEGER,

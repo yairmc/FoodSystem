@@ -1,29 +1,29 @@
-import  ProductB  from '../entities/Product.js';
-import { Product } from '../models/Product.js';
+import { Product } from '../entities/Product.js';
+import { ProductModel } from '../models/Product.model.js';
 
 export class ProductRepository {
 
     async create (product) {
-        const result = await Product.create(product._name, product._basePrice, product._cost, product._availability, product._taxes);      
-        
-        return new ProductB(result.name, result.basePrice, result.cost, result.availability, result.taxes);
+       const p = new product.toPersistenceObject();
+       const result = await ProductModel.create(p);
+       return new Product(result.name, result.basePrice, result.cost, result.availability, result.taxes, result.type, result.stock); 
     }
 
-    async update (product) {
-        if (product.id === undefined){
+    async update (id, product) {
+        if (id === undefined){
             throw new Error('Undefined ID')
         }
 
-        const result = await Product.update(product, {
+        const result = await ProductModel.update({name:product.name, basePrice:product.basePrice, cost:product.cost, availability:product.availability, taxes:product.taxes, type:product.typem, stock:product.stock}, {
             where: {
-                id: product.id
+                id: id
             }
         });
         return result;
     }
 
     async delete(id) {
-        const result = await Product.delete({
+        const result = await ProductModel.destroy({
             where: {
                 id: id
             }
@@ -32,18 +32,19 @@ export class ProductRepository {
     }
 
     async findOne(id) {
-        const result = await Product.findOne({
+        const result = await ProductModel.findOne({
             where: {
                 id: id
             }
         });
-        return result;
+        return result.toJSON();
     }
 
     async findAll() {
-        const result = await Product.findAll();
-        return result.map(() => {
-            new ProductB(result.name, result.basePrice, result.cost, result.availability, result.taxes)
+        const result = await RoleModel.findAll({
+            order: ['id'],
+            attributes: ['name', 'basePrice', 'cost', 'availability', 'taxes', 'type', 'stock']
         });
+        return JSON.stringify(result);
     }
 }
