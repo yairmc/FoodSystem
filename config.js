@@ -1,9 +1,9 @@
 export default {
     secretKey: "ym666",
 
-    database: "foodStore",
+    database: "foodstore",
     username: "root",
-    password: "root",
+    password: "1234",
     host: "localhost",
     dialect: "mysql"
 }
