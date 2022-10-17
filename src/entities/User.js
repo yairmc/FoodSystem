@@ -1,9 +1,12 @@
 export class User {
-    constructor(name, username, password) {
-        if (new.target === User) {
-            throw new Error("This is an abstract class");
-        }
+    constructor(name, userName, password, roleId) {
 
+        if (typeof roleId != "number") {
+            throw Error("Invalid id Role");
+        } else {
+            this._roleId = roleId;
+        }
+        
         if (typeof name != "string" || name == undefined) {
             throw Error("Invalid user name")
         }
@@ -11,11 +14,11 @@ export class User {
             this._name = name;
         }
 
-        if (typeof username != "string" || username == undefined) {
+        if (typeof userName != "string" || userName == undefined) {
             throw Error("Invalid username")
         }
         else {
-            this._username = username;
+            this._userName = userName;
         }
 
         if (typeof password != "string" || password == undefined) {
@@ -39,15 +42,15 @@ export class User {
         }
     }
 
-    get username() {
-        return this._username;
+    get userName() {
+        return this._userName;
     }
 
-    set username(value) {
+    set userName(value) {
         if (value == undefined || typeof value !== "string") {
             throw Error("Invalid username")
         } else {
-            this._username = value;
+            this._userName = value;
         }
     }
 
@@ -66,8 +69,9 @@ export class User {
     toPersistenceObject(){
         return {
             name: this._name,
-            username: this._username,
-            password: this._password        
+            userName: this._userName,
+            password: this._password,
+            roleId: this._roleId        
         }
     }
 }

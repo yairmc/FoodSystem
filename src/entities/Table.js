@@ -1,33 +1,33 @@
 export class Table{
-    constructor(idTable, availability, dinersNumber){
-        if(typeof idTable != "number" || idTable == undefined){
+    constructor(number, availability, dinersNumber){
+        if(typeof number != "number" || number == undefined){
             throw new Error("Ivalid id table");
         }else{
-            this._idTable = idTable
+            this._number = number
         }
 
         if(typeof availability != "boolean" || availability == undefined){
             throw new Error("Ivalid state table");
         }else{
-            this._idTable = idTable
+            this._availability = availability
         }
 
         if(typeof dinersNumber != "number" || dinersNumber == undefined){
             throw new Error("Ivalid diners Number");
         }else{
-            this._idTable = idTable
+            this._dinersNumber = dinersNumber
         }
     }
 
-    get idTable(){
-        return this._idTable;
+    get number(){
+        return this._number;
     }
 
-    set idTable(value){
+    set number(value){
         if(value == undefined || typeof value !== "number"){
             throw Error ("Ivalid id table")
         }else{
-            this._idTable= value;
+            this._number = value;
         }
     }
 
@@ -57,7 +57,7 @@ export class Table{
 
     toPersistenceObject(){
         return {
-            idTable: this._idTable,
+            number: this._number,
             availability: this._availability,
             dinersNumber: this._dinersNumber,   
         }

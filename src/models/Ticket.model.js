@@ -1,7 +1,7 @@
 import { DATE, FLOAT, INTEGER } from 'sequelize';
 import { sequelize } from "../config/connection.js"
 
-export const Ticket = sequelize.define("ticket", {
+export const TicketModel = sequelize.define("ticket", {
     id: {
         type: INTEGER,
         primaryKey: true,

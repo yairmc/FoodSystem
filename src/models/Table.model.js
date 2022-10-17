@@ -1,13 +1,14 @@
 import { BOOLEAN, INTEGER, BIGINT } from 'sequelize';
 import { sequelize } from "../config/connection.js"
 
-export const Table = sequelize.define("table", {
+export const TableModel = sequelize.define("table", {
     id: {
         type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
         unique: true
     },
+    number: {type: INTEGER},
     availability: { type: BOOLEAN },
     dinersNumber: { type: INTEGER },
 }, {

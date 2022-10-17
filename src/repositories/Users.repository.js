@@ -1,29 +1,29 @@
-import  UserB  from '../entities/User.js';
-import { User } from '../models/User.js';
+import { User }  from '../entities/User.js';
+import { UserModel } from '../models/User.model.js';
 
 export class UserRepository {
 
     async create (user) {
-        const result = await User.create(user._name, user._username, user._password);      
-        
-        return new UserB(result.name, result.username, result.password);
+        const u = user.toPersistenceObject();
+        const result = await UserModel.create(u);
+        return new User(result.name, result.userName, result.password, result.roleId);
     }
 
-    async update (user) {
-        if (user.id === undefined){
+    async update (id,user) {
+        if (id === undefined){
             throw new Error('Undefined ID')
         }
 
-        const result = await User.update(user, {
+        const result = await UserModel.update({name:user.name, userName:user.userName, password:user.password, roleId:user.roleId}, {
             where: {
-                id: user.id
+                id: id
             }
         });
         return result;
     }
 
     async delete(id) {
-        const result = await User.delete({
+        const result = await UserModel.destroy({
             where: {
                 id: id
             }
@@ -32,18 +32,20 @@ export class UserRepository {
     }
 
     async findOne(id) {
-        const result = await User.findOne({
+        const result = await UserModel.findOne({
             where: {
                 id: id
             }
         });
-        return result;
+        return result.toJSON();
     }
 
     async findAll() {
-        const result = await User.findAll();
-        return result.map(() => {
-            new UserB(result.name, result.username, result.password);
+        const result = await UserModel.findAll({
+            order: ['id'],
+            attributes: ['name', 'userName', 'roleId']
+
         });
+        return JSON.stringify(result);
     }
 }

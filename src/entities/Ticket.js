@@ -1,10 +1,10 @@
 
 export class Ticket{
-    constructor(date, paymentAmount, paymentReturn, sucursal){
-       if(typeof orden != "Orden" || orden == undefined){
+    constructor(paymentAmount, paymentReturn, orderId, branchId, date){
+       if(typeof orderId != "Orden" || orderId == undefined){
             throw Error ("Invalid order");
         }else{
-           this._orden = orden
+           this._orderId = orderId
         }
 
         if(typeof date != "object" || date == undefined){
@@ -25,14 +25,26 @@ export class Ticket{
             this._paymentReturn = paymentReturn
         }
 
-        if(typeof sucursal != "object" || sucursal == undefined){
+        if(typeof branchId != "object" || branchId == undefined){
             throw Error ("Invalid Sucursal ticket");
         }else{
-            this._sucursal = sucursal.sucursalName
+            this._branchId = branchId
 
         }
     }
 
+    get orderId(){
+        return this._orderId;
+    }
+
+    set orderId(value){
+        if(value == undefined || typeof value !== "object"){
+            throw Error ("Invalid orderId")
+        }else{
+            this._orderId = value;
+        }
+    }
+    
     get date(){
         return this._date;
     }
@@ -69,25 +81,25 @@ export class Ticket{
         }
     }
 
-    get sucursal(){
-        return this._sucursal.name;
+    get branchId(){
+        return this._branchId;
     }
 
-    set sucursal(value){
+    set branchId(value){
         if(value == undefined || typeof value !== "object"){
-            throw Error ("Invalid sucursal amount")
+            throw Error ("Invalid sucursal")
         }else{
-            this._sucursal = value.sucursalName;
+            this._branchId = value;
         }
     }
 
     toPersistenceObject(){
         return {
-            order: this._order,
+            orderId: this._orderId,
             date: this._date,
             paymentAmount: this._paymentAmount,
             paymentReturn: this._paymentReturn,   
-            branch: this._branch
+            branchId: this._branchId
         }
     }
 }
