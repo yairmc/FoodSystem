@@ -1,7 +1,7 @@
 import { sequelize } from "../config/connection.js"
 import { INTEGER, STRING } from "sequelize";
 
-export const Role = sequelize.define("role", {
+export const RoleModel = sequelize.define("role", {
     id: {
         type: INTEGER,
         primaryKey: true,

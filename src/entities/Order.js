@@ -43,4 +43,15 @@ export class Order{
             this._waiter = waiter.name;
         }
     }
+
+    toPersistenceObject(){
+        return {
+            state: this._state,
+            orderProduct: this._orderProduct,
+            total: this._total,
+            subtotal: this._subtotal,
+            table: this._table,
+            waiter: this._waiter       
+        }
+    }
 }

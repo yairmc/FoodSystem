@@ -55,5 +55,12 @@ export class OrderProduct{
             this._details = value;
         }
     }
-
+    
+    toPersistenceObject(){
+        return {
+            product: this._product,
+            quantity: this._quantity,
+            details: this._details,   
+        }
+    }
 }

@@ -80,4 +80,14 @@ export class Ticket{
             this._sucursal = value.sucursalName;
         }
     }
+
+    toPersistenceObject(){
+        return {
+            order: this._order,
+            date: this._date,
+            paymentAmount: this._paymentAmount,
+            paymentReturn: this._paymentReturn,   
+            branch: this._branch
+        }
+    }
 }

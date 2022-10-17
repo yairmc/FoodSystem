@@ -62,4 +62,12 @@ export class User {
             this._password = value;
         }
     }
+
+    toPersistenceObject(){
+        return {
+            name: this._name,
+            username: this._username,
+            password: this._password        
+        }
+    }
 }

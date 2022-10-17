@@ -83,4 +83,15 @@ export class PackagingProduct extends Product{
             this._stock = value;
         }
     }
+
+    toPersistenceObject(){
+        return {
+            name: this._name,
+            basePrice: this._basePrice,
+            cost: this._cost,   
+            availability: this._availability,
+            taxes: this._taxes,
+            stock: this._stock
+        }
+    }
 }
