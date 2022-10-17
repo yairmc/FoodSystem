@@ -1,5 +1,5 @@
 
-import { Table, Order, User, Ticket, RoleModel, BranchModel, OrderProduct, Product, ProductIngredient, Ingredient } from "./BarrelFile.js"
+import { TableModel, OrderModel, UserModel, TicketModel, RoleModel, BranchModel, OrderProductModel, ProductModel, ProductIngredientModel, IngredientModel } from "./BarrelFile.js"
 
 
 
@@ -27,10 +27,10 @@ TableModel.hasOne(OrderModel, {
 OrderModel.belongsTo(TableModel)
 
 // User
-RoleModel.hasOne(User, {
+RoleModel.hasOne(UserModel, {
     foreignKey: 'roleId'
 });
-User.belongsTo(RoleModel);
+UserModel.belongsTo(RoleModel);
 
 
 
