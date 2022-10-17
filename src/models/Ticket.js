@@ -10,6 +10,14 @@ export const Ticket = sequelize.define("ticket", {
     },
     paymentAmount: { type: FLOAT(10, 2) },
     paymentReturn: { type: FLOAT(10, 2) },
+    orderId: {
+        type: INTEGER,
+        allowNull: false
+    },
+    branchId: {
+        type: INTEGER,
+        allowNull: false
+    }
 }, {
     tableName: 'ticket',
     createdAt: 'date',
