@@ -2,7 +2,7 @@ import { INTEGER, STRING } from 'sequelize';
 import { sequelize } from "../config/connection.js"
 
 
-export const Branch = sequelize.define("Branch", {
+export const Branch = sequelize.define("branch", {
     id: {
         type: INTEGER,
         primaryKey: true,

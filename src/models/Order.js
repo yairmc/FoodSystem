@@ -10,6 +10,14 @@ export const Order = sequelize.define('order', {
     },
     total: { type: FLOAT(10, 2) },
     subTotal: { type: FLOAT(10, 2) },
+    userId: {
+        type: INTEGER,
+        allowNull: false
+    },
+    tableId: {
+        type: INTEGER,
+        allowNull: false
+    }
 }, {
     tableName: 'order',
     timestamps: false
