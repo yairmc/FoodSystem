@@ -1,5 +1,5 @@
 import { User } from "./User.js";
-import { RoleModel } from "./Role.moodel.js";
+import { RoleModel } from "./Role.model.js";
 import { Order } from "./Order.js";
 import { OrderProduct } from "./OrderProduct.js";
 import { Product } from "./Product.js";
