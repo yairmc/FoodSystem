@@ -54,4 +54,12 @@ export class Table{
             this._dinersNumber= value;
         }
     }
+
+    toPersistenceObject(){
+        return {
+            idTable: this._idTable,
+            availability: this._availability,
+            dinersNumber: this._dinersNumber,   
+        }
+    }
 }

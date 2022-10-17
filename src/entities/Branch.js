@@ -1,4 +1,4 @@
-export class Sucursal {
+export class Branch {
     constructor(sucursalName, sucursalAddress){
         if (typeof sucursalName != "string" || sucursalName == undefined){
             throw Error ("Invalid sucursal name")
@@ -35,6 +35,13 @@ export class Sucursal {
             throw Error ("Invalid sucursal address")
         }else{
             this._sucursalAddress = value;
+        }
+    }
+
+    toPersistenceObject(){
+        return {
+            sucursalName: this._sucursalName,
+            sucursalAddress: this._sucursalAddress,  
         }
     }
 }

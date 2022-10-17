@@ -11,12 +11,12 @@ import { PreparedDrinks } from "./PreparedDrinks.js"
 import { PreparedProduct } from "./PreparedProduct.js"
 import { Product } from "./Product.js"
 import { Saucer } from "./Saucer.js"
-import { Sucursal } from "./Sucursal.js"
+import { Branch } from "./Branch.js"
 import { Table } from "./Table.js"
 import { Ticket } from "./Ticket.js"
 import { User } from "./User.js"
 import { Waiter } from "./Waiter.js"
-
+import { Role } from "./Role.js"
 
 export {
     Administrator,
@@ -32,9 +32,10 @@ export {
     PreparedProduct,
     Product,
     Saucer,
-    Sucursal,
+    Branch,
     Table,
     Ticket,
     User,
-    Waiter
+    Waiter,
+    Role
 };

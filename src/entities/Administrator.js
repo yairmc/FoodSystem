@@ -55,4 +55,14 @@ export class Administrator extends User {
             this._idRole = value;
         }
     }
+
+    toPersistenceObject(){
+        return {
+            name: this._name,
+            username: this._username,
+            password: this._password,
+            idRole: this._idRole       
+        }
+    }
+
 }

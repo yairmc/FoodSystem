@@ -37,4 +37,11 @@ export class Ingredient {
             this._stock = value;
         }
     }
+
+    toPersistenceObject(){
+        return {
+            name: this._name,
+            stock: this._stock,   
+        }
+    }
 }

@@ -94,4 +94,14 @@ export class Product {
             this._taxes = value;
         }
     }
+
+    toPersistenceObject(){
+        return {
+            name: this._name,
+            basePrice: this._basePrice,
+            cost: this._cost,   
+            availability: this._availability,
+            taxes: this._taxes,
+        }
+    }
 }
