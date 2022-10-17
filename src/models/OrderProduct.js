@@ -6,6 +6,14 @@ export const OrderProduct = sequelize.define('orderProduct', {
     quantity: { type: INTEGER(10) },
     details: { type: STRING(50) },
     amount: { type: INTEGER(10) },
+    orderId: {
+        type: INTEGER,
+        allowNull: false
+    },
+    productId: {
+        type: INTEGER,
+        allowNull: false
+    }
 }, {
     tableName: 'orderProduct',
     timestamps: false
