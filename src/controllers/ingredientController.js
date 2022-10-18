@@ -13,8 +13,8 @@ const addIngredient = async (req, res) => {
 
 const getAllIngredients = async (req, res) => {
     try {
-        const users = await ingRepo.findAll();
-        res.status(200).json(users);
+        const ingredients = await ingRepo.findAll();
+        res.status(200).json(ingredients);
     } catch (error) {
         res.status(500).json({ msg: "Error while querying all ingredients" });
     }
