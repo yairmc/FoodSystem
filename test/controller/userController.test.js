@@ -28,7 +28,8 @@ describe("Testing userController", () => {
             roleId: 1,
         };
         const { body } = await request.post("/users").send(adminUserFail);
-        expect(body.msg).toBe("Error while adding user");
+        expect(body.errors[0].msg).toBe("name is required");
+        expect(body.errors[1].msg).toBe("name is too short");
     });
 
     test("This function must throw an error when the username already exist", async () => {
