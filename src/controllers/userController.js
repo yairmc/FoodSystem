@@ -1,19 +1,11 @@
-import { User as ModelUser } from "../models/User.js";
+import { UserModel as ModelUser } from "../models/User.model.js";
 import { Administrator, Waiter, Kitchen } from "../entities/BarrelFile.js";
 import { UserRepository } from "../repositories/Users.repository.js";
 const userRepository = new UserRepository();
 
 const addUser = async (req, res) => {
     try {
-        const { name, userName, password, roleId } = req.body;
-        const userAux = await ModelUser.create(
-            {
-                name,
-                userName,
-                password,
-                roleId,
-            }
-        );
+        const userAux = await userRepository.create(req.body)
         res.status(200).json(userAux);
     } catch (error) {
         console.log(error);
@@ -34,9 +26,7 @@ const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
         let userAux;
-        const user = await ModelUser.findOne({
-            where: { id }
-        });
+        const user = await userRepository.findOne(id);
         if (!user) return res.status(404).json({ msg: "This user doesn't exist" });
         userAux = castUser(user);
         res.status(200).json(userAux);
@@ -63,18 +53,7 @@ const getUserByUsername = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, userName, password, roleId } = req.body;
-        const userAux = await ModelUser.update(
-            {
-                name,
-                userName,
-                password,
-                roleId,
-            }, {
-            where: {
-                id
-            }
-        });
+        const userAux = await userRepository.update(id, req.body);
         if (userAux[0] === 0) {
             return res.status(404).json({ msg: "This user wasn't updated" });
         }
@@ -87,11 +66,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const deleteUser = await ModelUser.destroy(
-            {
-                where: { id }
-            }
-        );
+        const deleteUser = await userRepository.delete(id);
         if (!deleteUser) {
             return res.status(404).json({ msg: "This user wasn't deleted" });
         }

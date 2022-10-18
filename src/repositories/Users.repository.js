@@ -1,21 +1,15 @@
-import { User }  from '../entities/User.js';
+import { User } from '../entities/User.js';
 import { UserModel } from '../models/User.model.js';
 
 export class UserRepository {
 
-    async create (user) {
-        const u = user.toPersistenceObject();
-        const result = await UserModel.create(u);
-        return new User(result.name, result.userName, result.password, result.roleId);
+    async create(user) {
+        const result = await UserModel.create(user);
+        return new User(result.name, result.userName, result.password, result.roleId).toPersistenceObject();
     }
 
-    async update (id,user) {
-        if (id === undefined){
-
-            throw new Error('Undefined ID')
-        }
-
-        const result = await UserModel.update({name:user.name, userName:user.userName, password:user.password, roleId:user.roleId}, {
+    async update(id, user) {
+        const result = await UserModel.update({ name: user.name, userName: user.userName, password: user.password, roleId: user.roleId }, {
             where: {
                 id: id
             }
@@ -38,7 +32,7 @@ export class UserRepository {
                 id: id
             }
         });
-        return result.toJSON();
+        return result;
     }
 
     async findAll() {
