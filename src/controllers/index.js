@@ -1,3 +1,4 @@
 import * as authController from "./authController.js";
 import * as userController from "./userController.js";
-export { authController, userController };
+import * as ingredientController from "./ingredientController.js";
+export { authController, userController, ingredientController };
