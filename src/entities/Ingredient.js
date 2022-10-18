@@ -1,6 +1,6 @@
 export class Ingredient {
     constructor(name, stock){
-        if (typeof name != "string" || name == undefined){
+        if (typeof name !== "string" || name == undefined){
             throw Error ("Invalid name ingredient")
         }
         else{
