@@ -7,10 +7,4 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 app.use("/", RouterApp);
 
-const PORT = 3000;
-const HOST = "localhost";
-
-app.listen(PORT, HOST, () => {
-    console.clear();
-    console.log("Server running");
-})
+export {app}

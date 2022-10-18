@@ -1,6 +1,7 @@
-import config from '../../config.js'
-import jwt from 'jsonwebtoken'
+import { config } from "dotenv";
+config({ path: ".env" });
+import jwt from "jsonwebtoken";
 
 export function generateAccessToken(user) {
-    return jwt.sign(user, config.secretKey, {expiresIn: '50m'});
+    return jwt.sign(user, process.env.SECRETKEY, { expiresIn: "50m" });
 }

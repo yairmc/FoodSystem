@@ -1,39 +1,97 @@
+import { app } from "../../src/main";
+import supertest from "supertest";
+import { v4 as uuid } from "uuid";
 import { expect } from "@jest/globals";
-import { userController } from "../../src/controllers";
-import { Administrator } from "../../src/entities/BarrelFile.js";
-import { v4 } from "uuid";
 
+describe("Testing userController", () => {
+    const request = supertest(app);
+    const name = uuid();
+    const username = uuid();
+    const adminUser = {
+        name: `user-${name}`,
+        userName: `username-${username}`,
+        password: "12345",
+        roleId: 1,
+    };
 
-describe('Testing userController', () => {
-    test('This function must add new user', async () => {
-        const adminAux = new Administrator(`user-${v4()}`, `username-${v4()}`, "12345", 1);
-        const addUser = await userController.addUser(adminAux);
-        expect(addUser._name).toBe(adminAux._name);
-        expect(addUser._username).toBe(adminAux._username);
-    })
-    test('This function must return all users', async () => {
-        const users = await userController.getAllUsers();
-        expect(users.length > 0).toBe(true);
-    })
-    test('This function must return user by Id', async () => {
-        const users = await userController.getAllUsers();
-        const user = await userController.getUserById(users[users.length - 1].id);
-        expect(user._name).toBe(users[users.length - 1].name);
-    })
-    test('This function must return user by username', async () => {
-        const users = await userController.getAllUsers();
-        const user = await userController.getUserByUsername(users[users.length - 1].userName);
-        expect(user._username).toBe(users[users.length - 1].userName);
-    })
-    test('This function must delete user by id', async () => {
-        const users = await userController.getAllUsers();
-        const userDeleted = await userController.deleteUser(users[users.length - 1].id);
-        expect(userDeleted.msg).toBe("User was deleted");
-    })
-    test('This function must update user by id', async () => {
-        const users = await userController.getAllUsers();
-        const adminAux = new Administrator(users[users.length - 1].name, users[users.length - 1].userName, "54321", Number(users[users.length - 1].roleId));
-        const userUpdated = await userController.updateUser(adminAux, Number(users[users.length - 1].id));
-        expect(userUpdated.msg).toBe("User was updated");
-    })
-})
+    test("This function must add new user", async () => {
+        const { body } = await request.post("/users").send(adminUser);
+        expect(body.name).toBe(adminUser.name);
+        expect(body.userName).toBe(adminUser.userName);
+        expect(body.password).toBe(adminUser.password);
+        expect(body.roleId).toBe(adminUser.roleId);
+    });
+    test("This function must throw an error when we dont created a user with username", async () => {
+        const adminUserFail = {
+            userName: `username-${uuid()}`,
+            password: "12345",
+            roleId: 1,
+        };
+        const { body } = await request.post("/users").send(adminUserFail);
+        expect(body.msg).toBe("Error while adding user");
+    });
+
+    test("This function must throw an error when the username already exist", async () => {
+        const adminUserFail = {
+            name: adminUser.name,
+            userName: adminUser.userName,
+            password: "12345",
+            roleId: 1,
+        };
+        const { body } = await request.post("/users").send(adminUserFail);
+        expect(body.msg).toBe("Error while adding user");
+    });
+
+    test("This function must return all users", async () => {
+        const { body } = await request.get("/users");
+        expect(body.length).toBeGreaterThan(1);
+    });
+    test("This function must return user by Id", async () => {
+        const result = await request.get("/users");
+        const lastUserId = result.body[result.body.length - 1].id;
+        const { body } = await request.get(`/users/${lastUserId}`);
+        expect(body._name).toBe(adminUser.name);
+        expect(body._userName).toBe(adminUser.userName);
+        expect(body._password).toBe(adminUser.password);
+        expect(body._roleId).toBe(adminUser.roleId);
+    });
+    test("This function must throw an error if the user id doesn't exist", async () => {
+        const { body } = await request.get(`/users/${-1}`);
+        expect(body.msg).toBe("This user doesn't exist");
+    });
+    test("This function must return user by username", async () => {
+        const result = await request.get("/users");
+        const lastUser = result.body[result.body.length - 1].userName;
+        const { body } = await request.get(
+            `/users/username?username=${lastUser}`
+        );
+        expect(body._name).toBe(adminUser.name);
+        expect(body._userName).toBe(adminUser.userName);
+        expect(body._password).toBe(adminUser.password);
+        expect(body._roleId).toBe(adminUser.roleId);
+    });
+    test("This function must throw an error if the username doesn't exist", async () => {
+        const { body } = await request.get(
+            `/users/username?username=${"USERNAME_BAD"}`
+        );
+        expect(body.msg).toBe("This user doesn't exist");
+    });
+
+    test("This function must update user by id", async () => {
+        const result = await request.get("/users");
+        const lastUser = result.body[result.body.length - 1];
+        const newUserInfo = {
+            password: "newPassword",
+        };
+        const { body } = await request
+            .put(`/users/${lastUser.id}`)
+            .send(newUserInfo);
+        expect(body.msg).toBe("User updated");
+    });
+    test("This function must delete user by id", async () => {
+        const result = await request.get("/users");
+        const lastUserId = result.body[result.body.length - 1].id;
+        const { body } = await request.delete(`/users/${lastUserId}`);
+        expect(body.msg).toBe("User deleted");
+    });
+});
