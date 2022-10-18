@@ -4,9 +4,8 @@ import { RoleModel } from '../models/Role.model.js';
 export class RoleRepository {
 
     async create (role) {
-        const r = role.toPersistenceObject();
-        const result = await RoleModel.create(r);   
-        return new Role(result.name);
+        const result = await RoleModel.create(role);   
+        return new Role(result.name).toPersistenceObject();
     }
 
     async update (id, role) {
