@@ -40,7 +40,7 @@ const getIngredientByName = async (req, res) => {
         if (!ingredient) return res.status(404).json({ msg: "This ingredient doesn't exist" });
         res.status(200).json(ingredient);
     } catch (error) {
-        return res.status(500).json({ msg: "Error while querying user by username" });
+        return res.status(500).json({ msg: "Error while querying ingredient by name" });
     }
 };
 
