@@ -6,7 +6,7 @@ export class OrderProductRepository {
     async create (orderProducts) {
         const orderProductPO = orderProducts.toPersistenceObject();
         const result = await OrderProductModel.create(orderProductPO);     
-        return new OrderProduct(result.quantity, result.details, result.amount, result.order, result.product);
+        return new OrderProduct(result.quantity, result.ingredientId, result.productId);
     }
 
     async update (id, orderProducts) {
@@ -14,7 +14,7 @@ export class OrderProductRepository {
             throw new Error('Undefined ID')
         }
 
-        const result = await OrderProductModel.update({quantity: orderProducts.quantity, details: orderProducts.details, amount: orderProducts.amount, order: orderProducts.order, product: orderProducts.product },{
+        const result = await OrderProductModel.update({quantity: orderProducts.quantity, ingredientId: orderProducts.ingredientId , productId: orderProducts.productId },{
             where: {
                 id: id
             }
@@ -43,7 +43,7 @@ export class OrderProductRepository {
     async findAll() {
         const result = await OrderProductModel.findAll({
             orderProduct: ['id'],
-            attributes: ['quantity', 'details', 'amount', 'order', 'product']
+            attributes: ['quantity', 'ingredientId', 'productId']
         });
         return JSON.stringify(result);
     }

@@ -26,7 +26,7 @@ const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
         let userAux;
-        const user = await userRepository.findOne(id);
+        const user = await userRepository.findOneByID(id);
         if (!user) return res.status(404).json({ msg: "This user doesn't exist" });
         userAux = castUser(user);
         res.status(200).json(userAux);
@@ -39,9 +39,7 @@ const getUserByUsername = async (req, res) => {
     try {
         const { username } = req.query;
         let userAux;
-        const user = await ModelUser.findOne({
-            where: { userName: username }
-        });
+        const user = await userRepository.findOneByUsername(username);
         if (!user) return res.status(404).json({ msg: "This user doesn't exist" });
         userAux = castUser(user);
         res.status(200).json(userAux);

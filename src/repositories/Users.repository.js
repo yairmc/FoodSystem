@@ -26,10 +26,19 @@ export class UserRepository {
         return result;
     }
 
-    async findOne(id) {
+    async findOneByID(id) {
         const result = await UserModel.findOne({
             where: {
                 id: id
+            }
+        });
+        return result;
+    }
+
+    async findOneByUsername(username) {
+        const result = await UserModel.findOne({
+            where: {
+                username: username
             }
         });
         return result;
@@ -39,7 +48,6 @@ export class UserRepository {
         const result = await UserModel.findAll({
             order: ['id'],
             attributes: ['name', 'userName', 'roleId']
-
         });
         return JSON.stringify(result);
     }

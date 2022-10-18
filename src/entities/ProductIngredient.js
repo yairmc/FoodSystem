@@ -1,66 +1,65 @@
 export class ProductIngredient{
-    constructor(quantity, quantity, details){
-        if(typeof product != "object" || product == undefined){
-            throw new Error("Invalid product");
-        }else{
-            this._product = product;
-            this._amount = (this._product.basePrice * quantity);
-        }
-
+    constructor(quantity, ingredientId, productId){
         if(typeof quantity != "number" || quantity == undefined){
             throw new Error("Invalid quantity");
         }else{
             this._quantity = quantity;
         }
 
-        if(typeof details != "string" || details == undefined){
-            throw new Error("Invalid details");
+        if(typeof ingredientId != "number" || ingredientId == undefined){
+            throw new Error("Invalid ingredient");
         }else{
-            this._details= details;
+            this._ingredientId= ingredientId;
         }
-    }
 
-    get product(){
-        return this._product;
-    }
-
-    set product(value){
-        if(value == undefined || typeof value !== "object"){
-            throw Error ("Invalid product")
+        if(typeof productId != "number" || productId == undefined){
+            throw new Error("Invalid product");
         }else{
-            this._product = value;
+            this._productId= productId;
         }
     }
 
     get quantity(){
-        return this._username;
+        return this._quantity;
     }
 
     set quantity(value){
         if(value == undefined || typeof value !== "number"){
             throw Error ("Invalid quantity")
         }else{
-            this._quantity= value;
+            this._quantity = value;
         }
     }
 
-    get details(){
-        return this._details;
+    get ingredientId(){
+        return this._ingredientId;
     }
 
-    set details(value){
-        if(value == undefined || typeof value !== "string"){
-            throw Error ("Invalid details")
+    set ingredientId(value){
+        if(value == undefined || typeof value !== "number"){
+            throw Error ("Invalid ingredient")
         }else{
-            this._details = value;
+            this._ingredientId= value;
+        }
+    }
+
+    get productId(){
+        return this._productId;
+    }
+
+    set productId(value){
+        if(value == undefined || typeof value !== "string"){
+            throw Error ("Invalid product")
+        }else{
+            this._productId = value;
         }
     }
     
     toPersistenceObject(){
         return {
             product: this._product,
-            quantity: this._quantity,
-            details: this._details,   
+            ingredientId: this._ingredientId,
+            productId: this._productId,   
         }
     }
 }
