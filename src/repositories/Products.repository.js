@@ -1,7 +1,7 @@
 import { Product } from '../entities/Product.js';
 import { ProductModel } from '../models/Product.model.js';
 
-export class ProductRepository {
+export default class ProductRepository {
 
     async create(product) {
         const productAux = new product.toPersistenceObject();
