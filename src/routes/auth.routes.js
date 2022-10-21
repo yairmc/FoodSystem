@@ -1,5 +1,5 @@
 import express from "express";
-import { validateToken } from '../libs/validateToken.js'
+import { validateToken } from'../validators/token.validator.js'
 import { generateAccessToken } from "../controllers/authController.js";
 const authRouter = express.Router();
 

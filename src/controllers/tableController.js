@@ -6,7 +6,7 @@ const addTable = async (req, res) => {
         const tableAux = await tableRepository.createTable(req.body)
         res.status(200).json(tableAux)
     } catch (error) {
-        res.status(500).json({ msg: "Error while adding table" })
+        res.status(500).json({ msg: "Error while adding table...." })
     }
 }
 const updateTable = async (req, res) => {
@@ -33,8 +33,12 @@ const getTableById = async (req, res) => {
     try {
         const { id } = req.params;
         const table = await tableRepository.findOneTable(id);
-        if (!table) return res.status(404).json({ msg: "This table doesn't exist" });
-        res.status(200).json(table)
+        if (!table) {
+            return res.status(404).json({ msg: "This table doesn't exist" });
+        } else {
+            res.status(200).json(table)
+        }
+
     } catch (error) {
         return res.status(500).json({ msg: "Error while querying table" });
     }
@@ -51,7 +55,7 @@ const getTableByNumber = async (req, res) => {
 }
 const getAllTables = async (req, res) => {
     try {
-        const tables = await TableRepository.findAllTables();
+        const tables = await tableRepository.findAllTables();
         res.status(200).json(tables);
     } catch (error) {
         res.status(500).json({ msg: "Error while queryng all tables" })

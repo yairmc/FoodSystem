@@ -4,18 +4,13 @@ import { TableModel } from '../models/Table.model.js';
 export class TableRepository {
 
     async createTable(table) {
-        const t = table.toPersistenceObject();
-        const result = await TableModel.create(t);
+        const result = await TableModel.create(table);
         return new Table(result.number, result.availability, result.dinersNumber);
     }
 
     async updateTable(id, table) {
-        if (id === undefined) {
-            throw new Error('Undefined ID')
-        }
-
         const result = await TableModel.update({ number: table.number, availability: table.availability, dinersNumber: table.dinersNumber }, {
-            where: { id }
+            where: { id: id }
         });
         return result;
     }
@@ -31,14 +26,14 @@ export class TableRepository {
         const result = await TableModel.findOne({
             where: { id }
         });
-        return result.toJSON();
+        return result;
     }
 
     async findOneTableNumber(number) {
         const result = await TableModel.findOne({
             where: { number }
         });
-        return result.toJSON();
+        return result;
     }
 
     async findAllTables() {
