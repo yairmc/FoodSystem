@@ -3,17 +3,16 @@ const tableRepository = new TableRepository();
 
 const addTable = async (req, res) => {
     try {
-        const tableAux = await tableRepository.createTable(req.body)
-        res.status(200).json(tableAux)
+        await tableRepository.createTable(req.body)
+        res.status(200).json({ msg: "Table Created" })
     } catch (error) {
-        res.status(500).json({ msg: "Error while adding table" })
+        res.status(500).json({ msg: "Error while adding table...." })
     }
 }
 const updateTable = async (req, res) => {
     try {
         const { id } = req.params;
-        const tableAux = await tableRepository.updateTable(id, req.body);
-        if (tableAux[0] === 0) return res.status(404).json({ msg: "This table wasn't updated" })
+        await tableRepository.updateTable(id, req.body);
         res.status(200).json({ msg: "Table updated" })
     } catch (error) {
         return res.status(500).json({ msg: "Error while updating user" });
@@ -22,9 +21,8 @@ const updateTable = async (req, res) => {
 const deleteTable = async (req, res) => {
     try {
         const { id } = req.params;
-        const deleteTable = tableRepository.deleteTable(id);
-        if (!deleteTable) return res.status(404).json({ msg: "This table wasn't deleted" });
-        res.status(200).json({ msg: "Table deleted" })
+        await tableRepository.deleteTable(id);
+        return res.status(200).json({ msg: "Table deleted" })
     } catch (error) {
         return res.status(500).json({ msg: "Error while deleting table" })
     }
@@ -51,7 +49,7 @@ const getTableByNumber = async (req, res) => {
 }
 const getAllTables = async (req, res) => {
     try {
-        const tables = await TableRepository.findAllTables();
+        const tables = await tableRepository.findAllTables();
         res.status(200).json(tables);
     } catch (error) {
         res.status(500).json({ msg: "Error while queryng all tables" })
