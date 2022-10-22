@@ -49,7 +49,8 @@ export default class TableRepository {
     async getAllTables() {
         const allTables = await TableModel.findAll({
             order: ['id'],
-            attributes: ['id', 'number', 'availability', 'dinersNumber']
+            attributes: ["id",'number', 'availability', 'dinersNumber']
+
         });
         return allTables.map(iterator => iterator.dataValues);
     }

@@ -93,7 +93,6 @@ const validateGetTableByNumber = () => {
         query("number", "Number is requiered").notEmpty(),
         query("number", "Number must be a number").isNumeric().isInt(),
         query("number", "Number is to long").isLength({ max: 5 }),
-        query("availability", "Availability is requiered").notEmpty(),
         (req, res, next) => {
             try {
                 validationResult(req).throw();
