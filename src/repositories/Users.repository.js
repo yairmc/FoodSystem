@@ -1,4 +1,4 @@
-import { User } from '../entities/User.js';
+import { User } from './../entities/BarrelFile.js'
 import { UserModel } from '../models/User.model.js';
 
 export default class UserRepository {

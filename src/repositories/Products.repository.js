@@ -1,4 +1,4 @@
-import { Product } from '../entities/Product.js';
+import { Product } from '../entities/BarrelFile.js';
 import { ProductModel } from '../models/Product.model.js';
 
 export default class ProductRepository {
