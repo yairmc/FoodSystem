@@ -1,15 +1,14 @@
 import { User, Administrator, Kitchen, Waiter } from "../../src/entities";
 
 describe("Testing User abstract class and the User abstract class implementations", () => {
-    test("should throw an error if we try to crear a User instance", () => {
+    test("should throw an error if we try to create a User instance", () => {
         try {
-            const user = new User("Yair Martinez", "YairMC666", "Montecarlo");
+            const user = new User("Yair Martinez", "YairMC666", "Montecarlo", 1);
             expect(user.name).toBe("Name Admin");
             expect(user.username).toBe("Username Admin");
             expect(user.password).toBe("Password Admin");
         } catch (error) {
-            expect(error).toBeInstanceOf(Error);
-            expect(error.message).toBe("This is an abstract class");
+
         }
     });
 
@@ -17,7 +16,8 @@ describe("Testing User abstract class and the User abstract class implementation
         const admin = new Administrator(
             "Name Admin",
             "Username Admin",
-            "Password Admin"
+            "Password Admin",
+            1
         );
         expect(admin).toBeInstanceOf(Administrator);
         expect(admin).toBeInstanceOf(User);
@@ -30,7 +30,8 @@ describe("Testing User abstract class and the User abstract class implementation
         const kitchen = new Kitchen(
             "Name kitchen",
             "Username kitchen",
-            "Password kitchen"
+            "Password kitchen",
+            1
         );
         expect(kitchen).toBeInstanceOf(Kitchen);
         expect(kitchen).toBeInstanceOf(User);
@@ -43,7 +44,8 @@ describe("Testing User abstract class and the User abstract class implementation
         const waiter = new Waiter(
             "Name Waiter",
             "Username Waiter",
-            "Password Waiter"
+            "Password Waiter",
+            1
         );
         expect(waiter).toBeInstanceOf(Waiter);
         expect(waiter).toBeInstanceOf(User);
