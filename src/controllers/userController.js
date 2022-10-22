@@ -1,6 +1,6 @@
 import { UserModel as ModelUser } from "../models/User.model.js";
 import { Administrator, Waiter, Kitchen } from "../entities/BarrelFile.js";
-import { UserRepository } from "../repositories/Users.repository.js";
+import UserRepository from "../repositories/Users.repository.js";
 const userRepository = new UserRepository();
 
 const addUser = async (req, res) => {
