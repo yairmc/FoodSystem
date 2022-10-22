@@ -5,7 +5,7 @@ const userRepository = new UserRepository();
 
 const addUser = async (req, res) => {
     try {
-        const userAux = await userRepository.create(req.body)
+        const userAux = await userRepository.createUser(req.body)
         res.status(200).json(userAux);
     } catch (error) {
         res.status(500).json({ msg: "Error while adding user" });
@@ -25,7 +25,7 @@ const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
         let userAux;
-        const user = await userRepository.findOneByID(id);
+        const user = await userRepository.getUserById(id);
         if (!user) return res.status(404).json({ msg: "This user doesn't exist" });
         userAux = castUser(user);
         res.status(200).json(userAux);
@@ -38,7 +38,7 @@ const getUserByUsername = async (req, res) => {
     try {
         const { username } = req.query;
         let userAux;
-        const user = await userRepository.findOneByUsername(username);
+        const user = await userRepository.getUserByUsername(username);
         if (!user) return res.status(404).json({ msg: "This user doesn't exist" });
         userAux = castUser(user);
         res.status(200).json(userAux);
@@ -50,7 +50,7 @@ const getUserByUsername = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const userAux = await userRepository.update(id, req.body);
+        const userAux = await userRepository.updateUser(id, req.body);
         if (userAux[0] === 0) {
             return res.status(404).json({ msg: "This user wasn't updated" });
         }
@@ -63,7 +63,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const deleteUser = await userRepository.delete(id);
+        const deleteUser = await userRepository.deleteUser(id);
         if (!deleteUser) {
             return res.status(404).json({ msg: "This user wasn't deleted" });
         }

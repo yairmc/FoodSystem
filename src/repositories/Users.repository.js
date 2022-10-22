@@ -3,12 +3,12 @@ import { UserModel } from '../models/User.model.js';
 
 export default class UserRepository {
 
-    async create(user) {
+    async createUser(user) {
         const userCreated = await UserModel.create(user);
         return new User(userCreated.name, userCreated.userName, userCreated.password, userCreated.roleId).toPersistenceObject();
     }
 
-    async update(id, user) {
+    async updateUser(id, user) {
         const userUpdated = await UserModel.update({ name: user.name, userName: user.userName, password: user.password, roleId: user.roleId }, {
             where: {
                 id
@@ -17,7 +17,7 @@ export default class UserRepository {
         return userUpdated;
     }
 
-    async delete(id) {
+    async deleteUser(id) {
         const userDeleted = await UserModel.destroy({
             where: {
                 id
@@ -26,7 +26,7 @@ export default class UserRepository {
         return userDeleted;
     }
 
-    async findOneByID(id) {
+    async getUserById(id) {
         const user = await UserModel.findOne({
             where: {
                 id
@@ -35,7 +35,7 @@ export default class UserRepository {
         return user;
     }
 
-    async findOneByUsername(username) {
+    async getUserByUsername(username) {
         const user = await UserModel.findOne({
             where: {
                 username
@@ -44,7 +44,7 @@ export default class UserRepository {
         return user;
     }
 
-    async findAll() {
+    async getAllUsers() {
         const allUsers = await UserModel.findAll({
             order: ['id'],
             attributes: ['id', 'name', 'userName', 'roleId']
