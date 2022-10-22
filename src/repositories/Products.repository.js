@@ -3,13 +3,13 @@ import { ProductModel } from '../models/Product.model.js';
 
 export default class ProductRepository {
 
-    async create(product) {
+    async createProduct(product) {
         const productAux = product.toPersistenceObject();
         const prodCreated = await ProductModel.create(productAux);
         return new Product(prodCreated.name, prodCreated.basePrice, prodCreated.cost, prodCreated.availability, prodCreated.taxes, prodCreated.type, prodCreated.stock);
     }
 
-    async update(id, product) {
+    async updateProduct(id, product) {
         const prodUpdated = await ProductModel.update({
             name: product.name,
             basePrice: product.basePrice,
@@ -26,7 +26,7 @@ export default class ProductRepository {
         return prodUpdated;
     }
 
-    async delete(id) {
+    async deleteProduct(id) {
         const prodDeleted = await ProductModel.destroy({
             where: {
                 id
@@ -35,7 +35,7 @@ export default class ProductRepository {
         return prodDeleted;
     }
 
-    async findOne(id) {
+    async getProductById(id) {
         const product = await ProductModel.findOne({
             where: {
                 id
@@ -44,7 +44,7 @@ export default class ProductRepository {
         return product;
     }
 
-    async findByName(name) {
+    async getProductByName(name) {
         const product = await ProductModel.findOne({
             where: {
                 name
@@ -53,7 +53,7 @@ export default class ProductRepository {
         return product;
     };
 
-    async findAll() {
+    async getAllProducts() {
         const products = await ProductModel.findAll({
             order: ['id'],
             attributes: ['id', 'name', 'basePrice', 'cost', 'availability', 'taxes', 'type', 'stock']
