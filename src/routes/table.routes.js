@@ -11,8 +11,8 @@ const tableRouter = express.Router();
 
 tableRouter.get('/tables', getAllTables)
 tableRouter.post('/tables', validateAddTable(), addTable)
-tableRouter.get('/tables/:id', validateGetTableById(), getTableById)
 tableRouter.get('/tables/number', validateGetTableByNumber(), getTableByNumber)
+tableRouter.get('/tables/:id', validateGetTableById(), getTableById)
 tableRouter.delete('/tables/:id', validateDeleteTable(), deleteTable)
 tableRouter.put('/tables/:id', validateUpdateTable(), updateTable)
 

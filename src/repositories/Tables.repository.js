@@ -27,7 +27,7 @@ export class TableRepository {
     async findAllTables() {
         return await TableModel.findAll({
             order: ['id'],
-            attributes: ['number', 'availability', 'dinersNumber']
+            attributes: ["id",'number', 'availability', 'dinersNumber']
         });
     }
 }
