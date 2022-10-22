@@ -1,19 +1,18 @@
-import { RoleRepository } from "../repositories/Roles.repository.js";
+import RoleRepository from "../repositories/Roles.repository.js";
 const roleRepository = new RoleRepository();
 
 const addRole = async (req, res) => {
     try {
-        const roleAux = await roleRepository.create(req.body)
-        res.status(200).json(roleAux);
+        const newRole = await roleRepository.createRole(req.body)
+        res.status(200).json(newRole);
     } catch (error) {
-        console.log(error);
         res.status(500).json({ msg: "Error while adding role" });
     }
 };
 
 const getAllRoles = async (req, res) => {
     try {
-        const roles = await roleRepository.findAll({});
+        const roles = await roleRepository.getAllRoles();
         res.status(200).json(roles);
     } catch (error) {
         res.status(500).json({ msg: "Error while querying all roles" });
@@ -24,7 +23,7 @@ const getRoleById = async (req, res) => {
     try {
         const { id } = req.params;
         const role = await roleRepository.findOneByID(id);
-        if (!user) return res.status(404).json({ msg: "This role doesn't exist" });
+        if (!role) return res.status(404).json({ msg: "This role doesn't exist" });
         res.status(200).json(role);
     } catch (error) {
         return res.status(500).json({ msg: "Error while querying role" });
@@ -34,7 +33,7 @@ const getRoleById = async (req, res) => {
 const updateRole = async (req, res) => {
     try {
         const { id } = req.params;
-        const roleAux = await roleRepository.update(id, req.body);
+        const roleAux = await roleRepository.updateRole(id, req.body);
         if (roleAux[0] === 0) {
             return res.status(404).json({ msg: "This role wasn't updated" });
         }
@@ -47,7 +46,7 @@ const updateRole = async (req, res) => {
 const deleteRole = async (req, res) => {
     try {
         const { id } = req.params;
-        const deleteRole = await roleRepository.delete(id);
+        const deleteRole = await roleRepository.deleteRole(id);
         if (!deleteRole) {
             return res.status(404).json({ msg: "This role wasn't deleted" });
         }

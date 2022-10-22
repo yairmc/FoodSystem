@@ -1,54 +1,54 @@
-import { User } from '../entities/User.js';
+import { User } from './../entities/BarrelFile.js'
 import { UserModel } from '../models/User.model.js';
 
-export class UserRepository {
+export default class UserRepository {
 
-    async create(user) {
-        const result = await UserModel.create(user);
-        return new User(result.name, result.userName, result.password, result.roleId).toPersistenceObject();
+    async createUser(user) {
+        const userCreated = await UserModel.create(user);
+        return new User(userCreated.name, userCreated.userName, userCreated.password, userCreated.roleId).toPersistenceObject();
     }
 
-    async update(id, user) {
-        const result = await UserModel.update({ name: user.name, userName: user.userName, password: user.password, roleId: user.roleId }, {
+    async updateUser(id, user) {
+        const userUpdated = await UserModel.update({ name: user.name, userName: user.userName, password: user.password, roleId: user.roleId }, {
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return userUpdated;
     }
 
-    async delete(id) {
-        const result = await UserModel.destroy({
+    async deleteUser(id) {
+        const userDeleted = await UserModel.destroy({
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return userDeleted;
     }
 
-    async findOneByID(id) {
-        const result = await UserModel.findOne({
+    async getUserById(id) {
+        const user = await UserModel.findOne({
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return user;
     }
 
-    async findOneByUsername(username) {
-        const result = await UserModel.findOne({
+    async getUserByUsername(username) {
+        const user = await UserModel.findOne({
             where: {
-                username: username
+                username
             }
         });
-        return result;
+        return user;
     }
 
-    async findAll() {
-        const result = await UserModel.findAll({
+    async getAllUsers() {
+        const allUsers = await UserModel.findAll({
             order: ['id'],
-            attributes: ['name', 'userName', 'roleId']
+            attributes: ['id', 'name', 'userName', 'roleId']
         });
-        return JSON.stringify(result);
+        return allUsers;
     }
 }
