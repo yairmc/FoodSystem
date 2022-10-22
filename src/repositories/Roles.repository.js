@@ -1,50 +1,46 @@
-import { Role }  from '../entities/Role.js';
+import { Role } from '../entities/Role.js';
 import { RoleModel } from '../models/Role.model.js';
 
-export class RoleRepository {
+export default class RoleRepository {
 
-    async create (role) {
-        const result = await RoleModel.create(role);   
-        return new Role(result.name).toPersistenceObject();
+    async createRole(role) {
+        const roleCreated = await RoleModel.create(role);
+        return new Role(roleCreated.name);
     }
 
-    async update (id, role) {
-        if (id == undefined){
-            throw new Error('Undefined ID')
-        }
-
-        const result = await RoleModel.update({name:role.name},{
+    async updateRole(id, role) {
+        const roleUpdated = await RoleModel.update({ name: role.name }, {
             where: {
-                id : id
+                id
             }
         });
-        return result;
+        return roleUpdated;
     }
 
-    async delete(id) {
-        const result = await RoleModel.destroy({
+    async deleteRole(id) {
+        const roleDeleted = await RoleModel.destroy({
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return roleDeleted;
     }
 
-    async findOne(id) {
-        const result = await RoleModel.findOne({
+    async getRoleById(id) {
+        const role = await RoleModel.findOne({
             where: {
-                id: id
+                id
             }
         });
-        return result.toJSON();
+        return role;
     }
 
-    async findAll() {
-        const result = await RoleModel.findAll({
+    async getAllRoles() {
+        const allRoles = await RoleModel.findAll({
             order: ['id'],
-            attributes: ['name']
+            attributes: ['id', 'name']
         });
-        return JSON.stringify(result);
+        return allRoles;
     }
 }
 

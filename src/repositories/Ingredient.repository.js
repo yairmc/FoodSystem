@@ -1,68 +1,55 @@
-import { Ingredient }  from '../entities/Ingredient.js';
+import { Ingredient } from '../entities/Ingredient.js';
 import { IngredientModel } from '../models/Ingredient.model.js';
 
 export class IngredientRepository {
 
-    async create (ingredient) {
-        //const ingredientPO = ingredient.toPersistenceObject();
-        const result = await IngredientModel.create(ingredient);      
-        return new Ingredient(result.name, result.stock).toPersistenceObject();
+    async createIngredient(ingredient) {
+        const newIngredient = await IngredientModel.create(ingredient);
+        return new Ingredient(newIngredient.name, newIngredient.stock).toPersistenceObject();
     }
 
-    async update (id, ingredient) {
-        if (id === undefined){
-            throw new Error('Undefined ID')
-        }
-
-        const result = await IngredientModel.update({name:ingredient.name, stock:ingredient.stock},{
+    async updateIngredient(id, ingredient) {
+        const ingredientUpdated = await IngredientModel.update({ name: ingredient.name, stock: ingredient.stock }, {
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return ingredientUpdated;
     }
 
-    async delete(id) {
-        const result = await IngredientModel.destroy({
+    async deleteIngredient(id) {
+        const ingredientDeleted = await IngredientModel.destroy({
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return ingredientDeleted;
     }
 
-    async findOneById(id) {
-        const result = await IngredientModel.findOne({
+    async getIngredientById(id) {
+        const ingredient = await IngredientModel.findOne({
             where: {
-                id: id
+                id
             }
         });
-        return result.toJSON();
+        return ingredient;
     }
 
-    async findOneByName(name) {
-        const result = await IngredientModel.findOne({
+    async getIngredientByName(name) {
+        const ingredient = await IngredientModel.findOne({
             where: {
-                name: name
+                name
             }
         });
-        return result.toJSON();
+        return ingredient;
     }
 
-    async findAll() {
-        const result = await IngredientModel.findAll({
+    async getAllIngredients() {
+        const allIngredients = await IngredientModel.findAll({
             ingredient: ['id'],
-            attributes: ['name', 'stock']
+            attributes: ['id', 'name', 'stock']
         });
-        return JSON.stringify(result);
+        return allIngredients;
     }
-
-    // async findAll() {
-    //     const result = await Ingredient.findAll();
-    //     return result.map(() => {
-    //         new IngredientsB(result.name, result.stock)
-    //     });
-    // }
-
 }
 

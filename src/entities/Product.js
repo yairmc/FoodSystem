@@ -1,141 +1,137 @@
 export class Product {
     constructor(name, basePrice, cost, availability, taxes, type, stock) {
-        if (new.target === Product) {
-           throw new Error("This is an abstract class");
-        }
-
-        if(typeof name != "string" || name == undefined){
+        if (typeof name != "string" || name == undefined) {
             throw new Error("Invalid name product");
-        }else{
+        } else {
             this._name = name;
         }
 
-        if(typeof basePrice != "number" || basePrice == undefined){
+        if (typeof basePrice != "number" || basePrice == undefined) {
             throw new Error("Invalid base price product");
-        }else{
+        } else {
             this._basePrice = basePrice;
         }
 
-        if(typeof cost != "number" || cost == undefined){
+        if (typeof cost != "number" || cost == undefined) {
             throw new Error("Invalid cost product");
-        }else{
+        } else {
             this._cost = cost;
         }
 
-        if(typeof availability != "boolean" || availability == undefined){
+        if (typeof availability != "boolean" || availability == undefined) {
             throw new Error("Invalid availability product");
-        }else{
+        } else {
             this._availability = availability;
         }
 
-        if(typeof taxes != "number" || taxes == undefined){
+        if (typeof taxes != "number" || taxes == undefined) {
             throw new Error("Invalid taxes product");
-        }else{
+        } else {
             this._taxes = taxes;
         }
 
-        if(typeof type != "string" || type == undefined){
+        if (typeof type != "string" || type == undefined) {
             throw new Error("Invalid type product");
-        }else{
+        } else {
             this._type = type;
         }
 
-        if(typeof stock != "number" || stock == undefined){
+        if (typeof stock != "number" || stock == undefined) {
             throw new Error("Invalid stock product");
-        }else{
+        } else {
             this._stock = stock;
         }
     }
 
-    get name(){
+    get name() {
         return this._name;
     }
 
-    set name(value){
-        if(value == undefined || typeof value !== "string"){
-            throw Error ("Invalid name producto")
-        }else{
+    set name(value) {
+        if (value == undefined || typeof value !== "string") {
+            throw Error("Invalid name producto")
+        } else {
             this._name = value;
         }
     }
 
-    get basePrice(){
+    get basePrice() {
         return this._basePrice;
     }
 
-    set basePrice(value){
-        if(value == undefined || typeof value !== "number"){
-            throw Error ("Invalid basePrice producto")
-        }else{
+    set basePrice(value) {
+        if (value == undefined || typeof value !== "number") {
+            throw Error("Invalid basePrice producto")
+        } else {
             this._basePrice = value;
         }
     }
 
-    get cost(){
+    get cost() {
         return this._cost;
     }
 
-    set cost(value){
-        if(value == undefined || typeof value !== "number"){
-            throw Error ("Invalid cost producto")
-        }else{
+    set cost(value) {
+        if (value == undefined || typeof value !== "number") {
+            throw Error("Invalid cost producto")
+        } else {
             this._cost = value;
         }
     }
 
-    get availability(){
+    get availability() {
         return this._availability;
     }
 
-    set availability(value){
-        if(value == undefined || typeof value !== "boolean"){
-            throw Error ("Invalid availability producto")
-        }else{
+    set availability(value) {
+        if (value == undefined || typeof value !== "boolean") {
+            throw Error("Invalid availability producto")
+        } else {
             this._availability = value;
         }
     }
 
-    get taxes(){
+    get taxes() {
         return this._taxes;
     }
 
-    set taxes(value){
-        if(value == undefined || typeof value !== "number"){
-            throw Error ("Invalid taxes producto")
-        }else{
+    set taxes(value) {
+        if (value == undefined || typeof value !== "number") {
+            throw Error("Invalid taxes producto")
+        } else {
             this._taxes = value;
         }
     }
 
-    get type(){
+    get type() {
         return this._type;
     }
 
-    set type(value){
-        if(value == undefined || typeof value !== "string"){
-            throw Error ("Invalid type producto")
-        }else{
+    set type(value) {
+        if (value == undefined || typeof value !== "string") {
+            throw Error("Invalid type producto")
+        } else {
             this._type = value;
         }
     }
 
-    get stock(){
+    get stock() {
         return this._stock;
     }
 
-    set stock(value){
-        if(value == undefined || typeof value !== "number"){
-            throw Error ("Invalid stock producto")
-        }else{
+    set stock(value) {
+        if (value == undefined || typeof value !== "number") {
+            throw Error("Invalid stock producto")
+        } else {
             this._stock = value;
         }
     }
 
-    toPersistenceObject(){
+    toPersistenceObject() {
         return {
             name: this._name,
             basePrice: this._basePrice,
-            cost: this._cost,   
+            cost: this._cost,
             availability: this._availability,
             taxes: this._taxes,
             type: this._type,

@@ -1,50 +1,63 @@
-import { Product } from '../entities/Product.js';
+import { Product } from '../entities/BarrelFile.js';
 import { ProductModel } from '../models/Product.model.js';
 
-export class ProductRepository {
+export default class ProductRepository {
 
-    async create (product) {
-       const p = new product.toPersistenceObject();
-       const result = await ProductModel.create(p);
-       return new Product(result.name, result.basePrice, result.cost, result.availability, result.taxes, result.type, result.stock); 
+    async createProduct(product) {
+        const productAux = product.toPersistenceObject();
+        const prodCreated = await ProductModel.create(productAux);
+        return new Product(prodCreated.name, prodCreated.basePrice, prodCreated.cost, prodCreated.availability, prodCreated.taxes, prodCreated.type, prodCreated.stock);
     }
 
-    async update (id, product) {
-        if (id === undefined){
-            throw new Error('Undefined ID')
-        }
-
-        const result = await ProductModel.update({name:product.name, basePrice:product.basePrice, cost:product.cost, availability:product.availability, taxes:product.taxes, type:product.typem, stock:product.stock}, {
+    async updateProduct(id, product) {
+        const prodUpdated = await ProductModel.update({
+            name: product.name,
+            basePrice: product.basePrice,
+            cost: product.cost,
+            availability: product.availability,
+            taxes: product.taxes,
+            type: product.type,
+            stock: product.stock
+        }, {
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return prodUpdated;
     }
 
-    async delete(id) {
-        const result = await ProductModel.destroy({
+    async deleteProduct(id) {
+        const prodDeleted = await ProductModel.destroy({
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return prodDeleted;
     }
 
-    async findOne(id) {
-        const result = await ProductModel.findOne({
+    async getProductById(id) {
+        const product = await ProductModel.findOne({
             where: {
-                id: id
+                id
             }
         });
-        return result.toJSON();
+        return product;
     }
 
-    async findAll() {
-        const result = await RoleModel.findAll({
+    async getProductByName(name) {
+        const product = await ProductModel.findOne({
+            where: {
+                name
+            }
+        });
+        return product;
+    };
+
+    async getAllProducts() {
+        const products = await ProductModel.findAll({
             order: ['id'],
-            attributes: ['name', 'basePrice', 'cost', 'availability', 'taxes', 'type', 'stock']
+            attributes: ['id', 'name', 'basePrice', 'cost', 'availability', 'taxes', 'type', 'stock']
         });
-        return JSON.stringify(result);
+        return products.map(iterator => iterator.dataValues);
     }
 }

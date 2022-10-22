@@ -1,33 +1,57 @@
+import { Table } from './../entities/BarrelFile.js'
 import { TableModel } from '../models/Table.model.js';
 
-export class TableRepository {
+export default class TableRepository {
 
     async createTable(table) {
-        return await TableModel.create(table);
+        const tableCreated = await TableModel.create(table);
+        const { name, availability, dinersNumber } = tableCreated;
+        return new Table(name, availability, dinersNumber);
     }
 
     async updateTable(id, table) {
-        return await TableModel.update({ number: table.number, availability: table.availability, dinersNumber: table.dinersNumber }, {
-            where: { id: id }
+        const { number, availability, dinersNumber } = table;
+        const tableUpdated = await TableModel.update({ number: number, availability: availability, dinersNumber: dinersNumber }, {
+            where: {
+                id
+            }
         });
+        return tableUpdated;
     }
 
     async deleteTable(id) {
-        return await TableModel.destroy({ where: { id } });
+        const tableDeleted = await TableModel.destroy({
+            where: {
+                id
+            }
+        });
+        return tableDeleted;
     }
 
-    async findOneTable(id) {
-        return await TableModel.findOne({ where: { id } });
+    async getTableById(id) {
+        const table = await TableModel.findOne({
+            where: {
+                id
+            }
+        });
+        return table;
     }
 
-    async findOneTableNumber(number) {
-        return await TableModel.findOne({ where: { number } });
+    async getTableByNumber(number) {
+        const table = await TableModel.findOne({
+            where: {
+                number
+            }
+        });
+        return table;
     }
 
-    async findAllTables() {
-        return await TableModel.findAll({
+    async getAllTables() {
+        const allTables = await TableModel.findAll({
             order: ['id'],
             attributes: ["id",'number', 'availability', 'dinersNumber']
+
         });
+        return allTables.map(iterator => iterator.dataValues);
     }
 }

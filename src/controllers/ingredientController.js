@@ -1,20 +1,19 @@
 import { IngredientRepository } from "../repositories/Ingredient.repository.js";
-const ingRepo = new IngredientRepository();
+const ingredientRepository = new IngredientRepository();
 
 const addIngredient = async (req, res) => {
     try {
-        const ingredientAux = await ingRepo.create(req.body)
-        res.status(200).json(ingredientAux);
+        const newIngredient = await ingredientRepository.createIngredient(req.body)
+        res.status(200).json(newIngredient);
     } catch (error) {
-        console.log(error);
         res.status(500).json({ msg: "Error while adding ingredient" });
     }
 };
 
 const getAllIngredients = async (req, res) => {
     try {
-        const ingredients = await ingRepo.findAll();
-        res.status(200).json(ingredients);
+        const allIngredients = await ingredientRepository.getAllIngredients();
+        res.status(200).json(allIngredients);
     } catch (error) {
         res.status(500).json({ msg: "Error while querying all ingredients" });
     }
@@ -23,7 +22,7 @@ const getAllIngredients = async (req, res) => {
 const getIngredientById = async (req, res) => {
     try {
         const { id } = req.params;
-        const ingredient = await ingRepo.findOneById(id);
+        const ingredient = await ingredientRepository.getIngredientById(id);
         if (!ingredient) return res.status(404).json({ msg: "This ingredient doesn't exist" });
         res.status(200).json(ingredient);
     } catch (error) {
@@ -34,9 +33,7 @@ const getIngredientById = async (req, res) => {
 const getIngredientByName = async (req, res) => {
     try {
         const { name } = req.query;
-        const ingredient = await ingRepo.findOneByName({
-            where: { name: name }
-        });
+        const ingredient = await ingredientRepository.getIngredientByName(name);
         if (!ingredient) return res.status(404).json({ msg: "This ingredient doesn't exist" });
         res.status(200).json(ingredient);
     } catch (error) {
@@ -47,11 +44,11 @@ const getIngredientByName = async (req, res) => {
 const updateIngredient = async (req, res) => {
     try {
         const { id } = req.params;
-        const ingredientAux = await ingRepo.update(id, req.body);
+        const ingredientAux = await ingredientRepository.updateIngredient(id, req.body);
         if (ingredientAux[0] === 0) {
             return res.status(404).json({ msg: "This ingredient wasn't updated" });
         }
-        res.status(200).json({ msg: "ingredient updated" });
+        res.status(200).json({ msg: "Ingredient updated" });
     } catch (error) {
         return res.status(500).json({ msg: "Error while updating ingredient" });
     }
@@ -60,8 +57,8 @@ const updateIngredient = async (req, res) => {
 const deleteIngredient = async (req, res) => {
     try {
         const { id } = req.params;
-        const deleteIng= await ingRepo.delete(id);
-        if (!deleteIng) {
+        const ingredientDeleted = await ingredientRepository.deleteIngredient(id);
+        if (!ingredientDeleted) {
             return res.status(404).json({ msg: "This ingredient wasn't deleted" });
         }
         res.status(200).json({ msg: "Ingredient deleted" });
