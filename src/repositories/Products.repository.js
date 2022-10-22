@@ -4,9 +4,8 @@ import { ProductModel } from '../models/Product.model.js';
 export default class ProductRepository {
 
     async createProduct(product) {
-        const productAux = product.toPersistenceObject();
-        const prodCreated = await ProductModel.create(productAux);
-        return new Product(prodCreated.name, prodCreated.basePrice, prodCreated.cost, prodCreated.availability, prodCreated.taxes, prodCreated.type, prodCreated.stock);
+        const prodCreated = await ProductModel.create(product);
+        return new Product(prodCreated.name, prodCreated.basePrice, prodCreated.cost, prodCreated.availability, prodCreated.taxes, prodCreated.type, prodCreated.stock).toPersistenceObject();
     }
 
     async updateProduct(id, product) {
@@ -51,6 +50,15 @@ export default class ProductRepository {
             }
         });
         return product;
+    };
+
+    async getProductByType(type) {
+        const products = await ProductModel.findAll({
+            where: {
+                type
+            }
+        });
+        return products;
     };
 
     async getAllProducts() {
