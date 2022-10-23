@@ -26,7 +26,7 @@ export class ProductIngredienttRepository {
         return productIngredientDeleted;
     }
 
-    async findProductIngredientById(id) {
+    async getProductIngredientById(id) {
         const productIngredient = await ProductIngredientModel.findOne({
             where: {
                 id
@@ -35,7 +35,7 @@ export class ProductIngredienttRepository {
         return productIngredient;
     }
 
-    async findAll() {
+    async getAllProductIngredients() {
         const productIngredients = await ProductIngredientModel.findAll({
             order: ['id'],
             attributes: ['quantity', 'ingredientId', 'productId']

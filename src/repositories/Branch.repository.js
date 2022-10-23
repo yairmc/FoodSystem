@@ -26,7 +26,7 @@ export class BranchRepository {
         return branchDeleted;
     }
 
-    async findBranchById(id) {
+    async getBranchById(id) {
         const branch = await BranchModel.findOne({
             where: {
                 id
@@ -35,7 +35,7 @@ export class BranchRepository {
         return branch;
     }
 
-    async findAllBranch() {
+    async getAllBranches() {
         const allBranchs = await BranchModel.findAll({
             branch: ['id'],
             attributes: ['sucursalName', 'sucursalAddress']

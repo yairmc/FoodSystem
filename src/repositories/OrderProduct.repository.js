@@ -26,7 +26,7 @@ export class OrderProductRepository {
         return orderProductDeleted;
     }
 
-    async findOrderProductById(id) {
+    async getOrderProductById(id) {
         const orderProduct = await OrderProductModel.findOne({
             where: {
                 id
@@ -35,7 +35,7 @@ export class OrderProductRepository {
         return orderProduct;
     }
 
-    async findAllOrderProducts() {
+    async getAllOrderProducts() {
         const orderProducts = await OrderProductModel.findAll({
             orderProduct: ['id'],
             attributes: ['quantity', 'details', 'amount', 'order', 'product']
