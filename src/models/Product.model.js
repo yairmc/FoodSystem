@@ -9,7 +9,7 @@ export const ProductModel = sequelize.define("product", {
         autoIncrement: true,
         unique: true
     },
-    name: { type: STRING(50) },
+    name: { type: STRING(50), unique: true },
     basePrice: { type: INTEGER },
     cost: { type: INTEGER },
     availability: { type: BOOLEAN },

@@ -1,26 +1,23 @@
 import express from "express";
-
+import { prodController } from "../controllers/index.js";
 const prodRouter = express.Router();
 
-prodRouter.get("/products", (req, res) => {
-    res.send("All products");
-});
-prodRouter.post("/products", (req, res) => {
-    res.send("Add new product");
-});
-prodRouter.put("/products/:id", (req, res) => {
-    res.send("Update prod by id")
-});
-prodRouter.delete("/products/:id", (req, res) => {
-    res.send("Delete prod by ID");
-});
-prodRouter.get("/products/number", (req, res) => {
-    res.send("Get prod by number");
-});
-prodRouter.get("/products/type", (req, res) => {
-    res.send("Get prod by type");
-});
-prodRouter.get("/products/:id", (req, res) => {
-    res.send("Get prod by ID");
-});
+import { validateAddNewProduct, validateUpdateProduct, validateDeleteProductById, validateGetProductById, validateGetProductByName, validateGetProductByType } from "../validators/product.validator.js";
+const {
+    addProduct,
+    deleteProduct,
+    getAllProducts,
+    getProductById,
+    getProductByName,
+    updateProduct,
+    getProductByType
+} = prodController;
+
+prodRouter.get("/products", getAllProducts);
+prodRouter.post("/products", validateAddNewProduct(), addProduct);
+prodRouter.put("/products/:id", validateUpdateProduct(), updateProduct);
+prodRouter.delete("/products/:id", validateDeleteProductById(), deleteProduct);
+prodRouter.get("/products/name", validateGetProductByName(), getProductByName);
+prodRouter.get("/products/type", validateGetProductByType(), getProductByType);
+prodRouter.get("/products/:id", validateGetProductById(), getProductById);
 export default prodRouter;
