@@ -3,48 +3,43 @@ import { OrderModel } from '../models/Order.model.js';
 
 export class OrderRepository {
 
-    async create (order) {
-        const orderPO = order.toPersistenceObject();
-        const result = await OrderModel.create(orderPO);      
-        return new Order(result.state, result.total, result.subtotal, result.tableId, result.userId);
+    async createOrder(order) {
+        const newOrder = await OrderModel.create(order);      
+        return new Order(newOrder.state, newOrder.total, newOrder.subtotal, newOrder.tableId, newOrder.userId).toPersistenceObject();
     }
 
-    async update (id, order) {
-        if (order.id === undefined){
-            throw new Error('Undefined ID')
-        }
-
-        const result = await OrderModel.update({state: order.state, total: order.total, subtotal: order.subtotal, table: order.tableId, waiter: order.userId }, {
+    async updateOrder(id, order) {
+        const orderUpdated = await OrderModel.update({state: order.state, total: order.total, subtotal: order.subtotal, table: order.tableId, waiter: order.userId }, {
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return orderUpdated;
     }
 
-    async delete(id) {
-        const result = await OrderModel.destroy({
+    async deleteOrder(id) {
+        const orderDeleted = await OrderModel.destroy({
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return orderDeleted;
     }
 
-    async findOne(id) {
-        const result = await OrderModel.findOne({
+    async findOrderById(id) {
+        const order = await OrderModel.findOne({
             where: {
-                id: id
+                id
             }
         });
-        return result.toJSON();
+        return order;
     }
 
-    async findAll() {
-        const result = await OrderModel.findAll({
+    async findAllOrders() {
+        const allOrders = await OrderModel.findAll({
             order: ['id'],
             attributes: ['state', 'total', 'subtotal', 'table', 'waiter']
         });
-        return JSON.stringify(result);
+        return allOrders;
     }
 }

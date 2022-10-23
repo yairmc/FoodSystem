@@ -4,48 +4,43 @@ import { TicketModel } from '../models/Ticket.model.js';
 export class TicketRepository {
 
     async create (ticket) {
-       const t = ticket.toPersistenceObject();
-       const result = await TicketModel.create(t);
-       return new Ticket(result.paymentAmount, result.paymentReturn, result.orderId, result.branchId, result.date);
+       const newTicket = await TicketModel.create(ticket);
+       return new Ticket(newTicket.paymentAmount, newTicket.paymentReturn, newTicket.orderId, newTicket.branchId, newTicket.date);
     }
 
-    async update (id, ticket) {
-        if (id === undefined){
-            throw new Error('Undefined ID')
-        }
-
-        const result = await TicketModel.update({paymentAmount:ticket.paymentAmount, paymentReturn:ticket.paymentReturn, orderId:ticket.orderId, branchId:ticket.branchId, date:ticket.date}, {
+    async updateTicket (id, ticket) {
+        const ticketUpdated = await TicketModel.update({paymentAmount:ticket.paymentAmount, paymentReturn:ticket.paymentReturn, orderId:ticket.orderId, branchId:ticket.branchId, date:ticket.date}, {
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return ticketUpdated;
     }
 
-    async delete(id) {
-        const result = await TicketModel.destroy({
+    async deleteTicket(id) {
+        const ticketDeleted = await TicketModel.destroy({
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return ticketDeleted;
     }
 
-    async findOne(id) {
-        const result = await TicketModel.findOne({
+    async findTicketById(id) {
+        const ticket = await TicketModel.findOne({
             where: {
-                id: id
+                id
             }
         });
-        return result.toJSON();
+        return ticket;
     }
 
-    async findAll() {
-        const result = await TableModel.findAll({
+    async findAllTickets() {
+        const tickets = await TableModel.findAll({
             ticket: ['id'],
             attributes: ['paymentAmount', 'paymentReturn', 'orderId', 'branchId', 'date']
 
         });
-        return JSON.stringify(result);
+        return tickets;
     }
 }
