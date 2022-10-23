@@ -26,7 +26,7 @@ export class TicketRepository {
         return ticketDeleted;
     }
 
-    async findTicketById(id) {
+    async getTicketById(id) {
         const ticket = await TicketModel.findOne({
             where: {
                 id
@@ -35,7 +35,7 @@ export class TicketRepository {
         return ticket;
     }
 
-    async findAllTickets() {
+    async getAllTickets() {
         const tickets = await TableModel.findAll({
             ticket: ['id'],
             attributes: ['paymentAmount', 'paymentReturn', 'orderId', 'branchId', 'date']

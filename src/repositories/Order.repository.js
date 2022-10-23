@@ -1,7 +1,7 @@
 import { Order }  from '../entities/Order.js';
 import { OrderModel } from '../models/Order.model.js';
 
-export class OrderRepository {
+export default class OrderRepository {
 
     async createOrder(order) {
         const newOrder = await OrderModel.create(order);      
@@ -26,7 +26,7 @@ export class OrderRepository {
         return orderDeleted;
     }
 
-    async findOrderById(id) {
+    async getOrderById(id) {
         const order = await OrderModel.findOne({
             where: {
                 id
@@ -35,7 +35,7 @@ export class OrderRepository {
         return order;
     }
 
-    async findAllOrders() {
+    async getAllOrders() {
         const allOrders = await OrderModel.findAll({
             order: ['id'],
             attributes: ['state', 'total', 'subtotal', 'table', 'waiter']
