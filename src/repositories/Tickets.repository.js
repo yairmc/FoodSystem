@@ -3,7 +3,7 @@ import { TicketModel } from '../models/Ticket.model.js';
 
 export class TicketRepository {
 
-    async create (ticket) {
+    async createTicket (ticket) {
        const newTicket = await TicketModel.create(ticket);
        return new Ticket(newTicket.paymentAmount, newTicket.paymentReturn, newTicket.orderId, newTicket.branchId, newTicket.date);
     }

@@ -1,5 +1,12 @@
 import express from 'express';
-import { addTable, updateTable, deleteTable, getTableById, getTableByNumber, getAllTables } from '../controllers/tableController.js';
+import {
+    addTable,
+    updateTable,
+    deleteTable,
+    getTableById,
+    getTableByNumber,
+    getAllTables
+} from '../controllers/tableController.js';
 import {
     validateAddTable,
     validateUpdateTable,
