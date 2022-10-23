@@ -5,11 +5,11 @@ export default class OrderRepository {
 
     async createOrder(order) {
         const newOrder = await OrderModel.create(order);      
-        return new Order(newOrder.state, newOrder.total, newOrder.subtotal, newOrder.tableId, newOrder.userId).toPersistenceObject();
+        return new Order(newOrder.state, newOrder.total, newOrder.subTotal ,newOrder.userId, newOrder.tableId).toPersistenceObject();
     }
 
     async updateOrder(id, order) {
-        const orderUpdated = await OrderModel.update({state: order.state, total: order.total, subtotal: order.subtotal, table: order.tableId, waiter: order.userId }, {
+        const orderUpdated = await OrderModel.update({state: order.state, total: order.total, subTotal: order.subTotal, userId: order.userId, tableId: order.tableId }, {
             where: {
                 id
             }
@@ -38,7 +38,7 @@ export default class OrderRepository {
     async getAllOrders() {
         const allOrders = await OrderModel.findAll({
             order: ['id'],
-            attributes: ['state', 'total', 'subtotal', 'table', 'waiter']
+            attributes: ['state', 'total', 'subTotal', 'userId', 'tableId']
         });
         return allOrders;
     }
