@@ -5,7 +5,7 @@ export class IngredientRepository {
 
     async createIngredient(ingredient) {
         const newIngredient = await IngredientModel.create(ingredient);
-        return new Ingredient(newIngredient.name, newIngredient.stock).toPersistenceObject();
+        return new Ingredient(newIngredient.name, newIngredient.stock)
     }
 
     async updateIngredient(id, ingredient) {

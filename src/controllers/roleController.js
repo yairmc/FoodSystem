@@ -2,10 +2,12 @@ import RoleRepository from "../repositories/Roles.repository.js";
 const roleRepository = new RoleRepository();
 
 const addRole = async (req, res) => {
+    
     try {
         const newRole = await roleRepository.createRole(req.body)
         res.status(200).json(newRole);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ msg: "Error while adding role" });
     }
 };
@@ -22,10 +24,11 @@ const getAllRoles = async (req, res) => {
 const getRoleById = async (req, res) => {
     try {
         const { id } = req.params;
-        const role = await roleRepository.findOneByID(id);
+        const role = await roleRepository.getRoleById(id);
         if (!role) return res.status(404).json({ msg: "This role doesn't exist" });
         res.status(200).json(role);
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ msg: "Error while querying role" });
     }
 };
