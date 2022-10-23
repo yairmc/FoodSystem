@@ -3,49 +3,44 @@ import { BranchModel } from '../models/Branch.model.js';
 
 export class BranchRepository {
 
-    async create (branch) {
-        const branchPO = branch.toPersistenceObject();
-        const result = await BranchModel.create(branchPO);   
-        return new Branch(result.sucursalName, result.sucursalAddress);
+    async createBranch(branch) {
+        const newBranch = await BranchModel.create(branch);   
+        return new Branch(newBranch.sucursalName, newBranch.sucursalAddress).toPersistenceObject();
     }
 
-    async update (id, branch) {
-        if (id == undefined){
-            throw new Error('Undefined ID')
-        }
-
-        const result = await BranchModel.update({sucursalName:branch.sucursalName, sucursalAddress:branch.sucursalAddress},{
+    async updateBranch (id, branch) {
+        const branchUpdated = await BranchModel.update({sucursalName:branch.sucursalName, sucursalAddress:branch.sucursalAddress},{
             where: {
-                id : id
+                id 
             }
         });
-        return result;
+        return branchUpdated;
     }
 
-    async delete(id) {
-        const result = await BranchModel.destroy({
+    async deleteBranch(id) {
+        const branchDeleted = await BranchModel.destroy({
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return branchDeleted;
     }
 
-    async findOne(id) {
-        const result = await BranchModel.findOne({
+    async findBranchById(id) {
+        const branch = await BranchModel.findOne({
             where: {
-                id: id
+                id
             }
         });
-        return result.toJSON();
+        return branch;
     }
 
-    async findAll() {
-        const result = await BranchModel.findAll({
+    async findAllBranch() {
+        const allBranchs = await BranchModel.findAll({
             branch: ['id'],
             attributes: ['sucursalName', 'sucursalAddress']
         });
-        return JSON.stringify(result);
+        return allBranchs;
     }
 }
 

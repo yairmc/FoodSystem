@@ -1,50 +1,45 @@
-import  { OrderProduct }  from '../entities/ProductIngredient.js';
-import { OrderProductModel } from '../models/OrderProduct.model.js';
+import  { ProductIngredient }  from '../entities/ProductIngredient.js';
+import { ProductIngredientModel } from '../models/ProductIngredient.model.js';
 
-export class OrderProductRepository {
+export class ProductIngredienttRepository {
 
-    async create (orderProducts) {
-        const orderProductPO = orderProducts.toPersistenceObject();
-        const result = await OrderProductModel.create(orderProductPO);     
-        return new OrderProduct(result.quantity, result.ingredientId, result.productId);
+    async createProductIngredient(productIngredient) {
+        const newProductIngredient = await ProductIngredientModel.create(productIngredient);     
+        return new ProductIngredient(newProductIngredient.quantity, newProductIngredient.ingredientId, newProductIngredient.productId);
     }
 
-    async update (id, orderProducts) {
-        if (orderProducts.id === undefined){
-            throw new Error('Undefined ID')
-        }
-
-        const result = await OrderProductModel.update({quantity: orderProducts.quantity, ingredientId: orderProducts.ingredientId , productId: orderProducts.productId },{
+    async updateProductIngredient(id, productIngredient) {
+        const productIngredientUpdated = await ProductIngredientModel.update({quantity: productIngredient.quantity, ingredientId: productIngredient.ingredientId , productId: productIngredient.productId },{
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return productIngredientUpdated;
     }
 
-    async delete(id) {
-        const result = await OrderProductModel.destroy({
+    async deleteProductIngredient(id) {
+        const productIngredientDeleted = await ProductIngredientModel.destroy({
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return productIngredientDeleted;
     }
 
-    async findOne(id) {
-        const result = await OrderProductModel.findOne({
+    async findProductIngredientById(id) {
+        const productIngredient = await ProductIngredientModel.findOne({
             where: {
-                id: id
+                id
             }
         });
-        return result.toJSON();
+        return productIngredient;
     }
 
     async findAll() {
-        const result = await OrderProductModel.findAll({
-            orderProduct: ['id'],
+        const productIngredients = await ProductIngredientModel.findAll({
+            order: ['id'],
             attributes: ['quantity', 'ingredientId', 'productId']
         });
-        return JSON.stringify(result);
+        return productIngredients;
     }
 }

@@ -40,7 +40,7 @@ const getTableById = async (req, res) => {
 const getTableByNumber = async (req, res) => {
     try {
         const { number } = req.query;
-        const table = await tableRepository.findOneTableNumber(number);
+        const table = await tableRepository.getTableByNumber(number);
 
         if (!table) return res.status(404).json({ msg: "This table doesn't exist" });
         res.status(200).json(table)

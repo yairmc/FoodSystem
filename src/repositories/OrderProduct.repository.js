@@ -3,48 +3,43 @@ import { OrderProductModel } from '../models/OrderProduct.model.js';
 
 export class OrderProductRepository {
 
-    async create (orderProducts) {
-        const orderProductPO = orderProducts.toPersistenceObject();
-        const result = await OrderProductModel.create(orderProductPO);     
-        return new OrderProduct(result.quantity, result.details, result.amount, result.order, result.product);
+    async createOrderProduct(orderProduct) {
+        const newOrderProducto = await OrderProductModel.create(orderProduct);     
+        return new OrderProduct(newOrderProducto.quantity, newOrderProducto.details, newOrderProducto.amount, resnewOrderProductoult.order, newOrderProducto.product).toPersistenceObject();
     }
 
-    async update (id, orderProducts) {
-        if (orderProducts.id === undefined){
-            throw new Error('Undefined ID')
-        }
-
-        const result = await OrderProductModel.update({quantity: orderProducts.quantity, details: orderProducts.details, amount: orderProducts.amount, order: orderProducts.order, product: orderProducts.product },{
+    async updateOrderProduct(id, orderProducts) {
+        const orderProductUpdated = await OrderProductModel.update({quantity: orderProducts.quantity, details: orderProducts.details, amount: orderProducts.amount, order: orderProducts.order, product: orderProducts.product },{
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return orderProductUpdated;
     }
 
-    async delete(id) {
-        const result = await OrderProductModel.destroy({
+    async deleteOrderProduct(id) {
+        const orderProductDeleted = await OrderProductModel.destroy({
             where: {
-                id: id
+                id
             }
         });
-        return result;
+        return orderProductDeleted;
     }
 
-    async findOne(id) {
-        const result = await OrderProductModel.findOne({
+    async findOrderProductById(id) {
+        const orderProduct = await OrderProductModel.findOne({
             where: {
-                id: id
+                id
             }
         });
-        return result.toJSON();
+        return orderProduct;
     }
 
-    async findAll() {
-        const result = await OrderProductModel.findAll({
+    async findAllOrderProducts() {
+        const orderProducts = await OrderProductModel.findAll({
             orderProduct: ['id'],
             attributes: ['quantity', 'details', 'amount', 'order', 'product']
         });
-        return JSON.stringify(result);
+        return orderProducts;
     }
 }
