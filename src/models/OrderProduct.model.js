@@ -4,13 +4,16 @@ import { sequelize } from "../config/connection.js"
 
 export const OrderProductModel = sequelize.define('orderProduct', {
     quantity: { 
-        type: INTEGER(10)
+        type: INTEGER,
+        allowNull: false
     },
     details: { 
-        type: STRING(50)
+        type: STRING(50),
+        allowNull: false
      },
     amount: { 
-        type: INTEGER(10)
+        type: INTEGER,
+        allowNull: false
      },
     orderId: {
         type: INTEGER,

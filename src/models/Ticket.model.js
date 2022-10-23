@@ -8,8 +8,14 @@ export const TicketModel = sequelize.define("ticket", {
         autoIncrement: true,
         unique: true
     },
-    paymentAmount: { type: FLOAT(10, 2) },
-    paymentReturn: { type: FLOAT(10, 2) },
+    paymentAmount: { 
+        type: FLOAT(10, 2),
+        allowNull: false 
+    },
+    paymentReturn: { 
+        type: FLOAT(10, 2),
+        allowNull: false
+     },
     orderId: {
         type: INTEGER,
         allowNull: false

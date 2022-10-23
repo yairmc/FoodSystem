@@ -9,8 +9,15 @@ export const BranchModel = sequelize.define("branch", {
         autoIncrement: true,
         unique: true
     },
-    branchName: { type: STRING(50) },
-    branchAdress: { type: STRING(50) }
+    branchName: { 
+        type: STRING(50), 
+        allowNull: false
+    },
+
+    branchAdress: { 
+        type: STRING(50), 
+        allowNull: false
+    }
 }, {
     tableName: 'branch',
     timestamps: false,

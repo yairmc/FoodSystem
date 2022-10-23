@@ -9,13 +9,33 @@ export const ProductModel = sequelize.define("product", {
         autoIncrement: true,
         unique: true
     },
-    name: { type: STRING(50), unique: true },
-    basePrice: { type: INTEGER },
-    cost: { type: INTEGER },
-    availability: { type: BOOLEAN },
-    taxes: { type: FLOAT(10, 2) },
-    type: { type: STRING(50) },
-    stock: { type: INTEGER }
+    name: { 
+        type: STRING(50), 
+        unique: true,
+        allowNull: false
+    },
+    basePrice: { 
+        type: INTEGER,
+        allowNull: false
+    },
+    cost: { 
+        type: INTEGER,
+        allowNull: false 
+    },
+    availability: { 
+        type: BOOLEAN,
+        allowNull: false 
+    },
+    taxes: { type: FLOAT(10, 2),
+        allowNull: false 
+    },
+    type: { type: STRING(50),
+        allowNull: false
+     },
+    stock: { 
+        type: INTEGER,
+        allowNull: true
+     }
 }, {
     tableName: 'product',
     timestamps: false

@@ -8,13 +8,20 @@ export const TableModel = sequelize.define("table", {
         autoIncrement: true,
         unique: true
     },
-    number: { type: INTEGER },
-    availability: { type: BOOLEAN },
+    number: { 
+        type: INTEGER,
+        allowNull: false,
+        unique: true
+    },
+    availability: { type: BOOLEAN,
+        allowNull: false 
+    },
     dinersNumber: {
         type: INTEGER,
-        unique: true
+        allowNull: false
     },
 }, {
     tablename: 'table',
     timestamps: false,
 });
+            

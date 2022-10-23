@@ -9,10 +9,13 @@ export const IngredientModel = sequelize.define("ingredient", {
         unique: true
     },
     name: { 
-        type: STRING(50)
+        type: STRING(50),
+        allowNull: false,
+        unique: true
     },
     stock: { 
-        type: INTEGER 
+        type: INTEGER,
+        allowNull: false
     },
 }, {
     tableName: 'ingredient',

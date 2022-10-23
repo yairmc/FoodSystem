@@ -9,13 +9,16 @@ export const OrderModel = sequelize.define('order', {
         unique: true
     },
     state: {
-        type: INTEGER
+        type: INTEGER,
+        allowNull: false
     },
     total: { 
-        type: FLOAT(10, 2) 
+        type: FLOAT(10, 2),
+        allowNull: false 
     },
     subTotal: { 
-        type: FLOAT(10, 2) 
+        type: FLOAT(10, 2),
+        allowNull: false
     },
     userId: {
         type: INTEGER,
