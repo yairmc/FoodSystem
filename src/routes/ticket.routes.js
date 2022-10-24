@@ -8,17 +8,18 @@ import {
     getAllTickets,
     getTicketByPeriod
 
-} from'../controllers/ticketController.js'
+} from '../controllers/ticketController.js'
+import { validateAddTicket, validateDeleteTicket, validateGetTableByPeriod, validateGetTicketById, validateGetTicketByOrder, validateUpdateTicket } from '../validators/ticket.validator.js';
 
 const ticketRouter = express.Router();
 
 
-ticketRouter.post('/tickets', addTicket);
-ticketRouter.put('/tickets/:id', updatedTicket);
-ticketRouter.delete('/tickets/:id', deleteTicket);
-ticketRouter.get('/tickets/orderId',getTicketByOrder )
-ticketRouter.get('/tickets/fecha', getTicketByPeriod)
-ticketRouter.get('/tickets/:id',getTicketById );
+ticketRouter.post('/tickets', validateAddTicket(), addTicket);
+ticketRouter.put('/tickets/:id', validateUpdateTicket(), updatedTicket);
+ticketRouter.delete('/tickets/:id', validateDeleteTicket(), deleteTicket);
+ticketRouter.get('/tickets/orderId', validateGetTicketByOrder(), getTicketByOrder)
+ticketRouter.get('/tickets/fecha', validateGetTableByPeriod(), getTicketByPeriod)
+ticketRouter.get('/tickets/:id',validateGetTicketById(), getTicketById);
 
 ticketRouter.get('/tickets', getAllTickets);
 
