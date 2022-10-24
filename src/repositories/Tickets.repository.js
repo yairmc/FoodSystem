@@ -1,15 +1,16 @@
 import { Ticket } from '../entities/Ticket.js';
 import { TicketModel } from '../models/Ticket.model.js';
+import {Op} from 'sequelize';
 
 export default class TicketRepository {
 
     async createTicket(ticket) {
-        const {dataValues} = await TicketModel.create(ticket);
+        const { dataValues } = await TicketModel.create(ticket);
         const newTicket = dataValues;
         return new Ticket(newTicket.paymentAmount, newTicket.paymentReturn, newTicket.orderId, newTicket.branchId, newTicket.date);
     }
- 
-    
+
+
     async updateTicket(id, ticket) {
         const ticketUpdated = await TicketModel.update({ paymentAmount: ticket.paymentAmount, paymentReturn: ticket.paymentReturn, orderId: ticket.orderId, branchId: ticket.branchId, date: ticket.date }, {
             where: { id }
@@ -31,13 +32,24 @@ export default class TicketRepository {
         return ticket;
     }
 
-    async getTicketByOrder(id) {
-        const ticket = await TicketModel.findOne({
-            where: {
-                orderId : id
-            }
+    async getTicketByOrder(orderId) {
+        const ticket = await TicketModel.findAll({
+            where: { orderId }
         });
         return ticket;
+    }
+
+    async getTicketByPeriod(desde, hasta) {
+        const tickets = await TicketModel.findAll({
+            where: {
+                date:
+                {
+                    [Op.between]: [desde, hasta]
+                }
+            }
+        });
+        return tickets.map(iterator => iterator.dataValues);
+
     }
 
     async getAllTickets() {
