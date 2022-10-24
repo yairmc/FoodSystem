@@ -11,12 +11,12 @@ import {
 const ticketRouter = express.Router();
 
 
-ticketRouter.post('/tickets', addTicket)
-ticketRouter.put('/tickets', updatedTicket)
-ticketRouter.delete('/tickets', deleteTicket)
+ticketRouter.post('/tickets', addTicket);
+ticketRouter.put('/tickets/:id', updatedTicket);
+ticketRouter.delete('/tickets/:id', deleteTicket);
 // ticketRouter.get('/tickets/fecha', )
 // ticketRouter.get('/tickets/order')
-ticketRouter.get('/tickets/:id',getTicketById )
-ticketRouter.get('/tickets', getAllTickets)
+ticketRouter.get('/tickets/:id',getTicketById );
+ticketRouter.get('/tickets', getAllTickets);
 
 export default ticketRouter;

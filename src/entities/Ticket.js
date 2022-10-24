@@ -1,7 +1,7 @@
 
 export class Ticket{
     constructor(paymentAmount, paymentReturn, orderId, branchId, date){
-       if(typeof orderId != "Orden" || orderId == undefined){
+       if(typeof orderId!= "number" || orderId == undefined){
             throw Error ("Invalid order");
         }else{
            this._orderId = orderId
@@ -25,7 +25,7 @@ export class Ticket{
             this._paymentReturn = paymentReturn
         }
 
-        if(typeof branchId != "object" || branchId == undefined){
+        if(typeof branchId != "number" || branchId == undefined){
             throw Error ("Invalid Sucursal ticket");
         }else{
             this._branchId = branchId
