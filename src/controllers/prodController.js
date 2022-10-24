@@ -1,19 +1,23 @@
 import ProductRepository from "../repositories/Products.repository.js";
 const prodRepository = new ProductRepository();
 
-const addProduct = async (req, res) => {
+const addProduct = async (req, res, next) => {
     try {
-        const prodAdded = await prodRepository.createProduct(req.body);
-        res.status(200).json(prodAdded);
+        const { name, basePrice, cost, availability, taxes, type, stock } = req.body;
+        const productToAdd = {name, basePrice, cost, availability, taxes, type, stock };
+        const prodAdded = await prodRepository.createProduct(productToAdd);
+        req.idProduct = prodAdded.id;
+        next();
     } catch (error) {
-        res.status(500).json({ msg: "Error while adding product" })
+        console.log(error);
+        res.status(500).json({ msg: "Error while adding product" });
     }
 };
 
 const getAllProducts = async (req, res) => {
     try {
         const products = await prodRepository.getAllProducts();
-        res.status(200).json(products)
+        res.status(200).json(products);
     } catch (error) {
         res.status(500).json({ msg: "Error while querying all products" });
     }
@@ -54,12 +58,13 @@ const updateProduct = async (req, res) => {
     try {
         const { id } = req.params;
         const productsUpdated = await prodRepository.updateProduct(id, req.body);
-        if (productsUpdated[0] === 0) return res.status(404).json({ msg: "This product wasn't updated" });
+        if (productsUpdated[0] === 0)
+            return res.status(404).json({ msg: "This product wasn't updated" });
         return res.status(200).json({ msg: "Product updated" });
     } catch (error) {
         return res.status(500).json({ msg: "Error while updating product" });
     }
-}
+};
 const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params;
@@ -69,5 +74,13 @@ const deleteProduct = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ msg: "Error while deleting product" });
     }
-}
-export { addProduct, getAllProducts, getProductById, getProductByName, getProductByType, updateProduct, deleteProduct };
+};
+export {
+    addProduct,
+    getAllProducts,
+    getProductById,
+    getProductByName,
+    getProductByType,
+    updateProduct,
+    deleteProduct,
+};

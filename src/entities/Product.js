@@ -1,5 +1,10 @@
 export class Product {
-    constructor(name, basePrice, cost, availability, taxes, type, stock) {
+    constructor(name, basePrice, cost, availability, taxes, type, stock,id) {
+        if(id===undefined){
+            throw new Error("Invalid product id");
+        }else{
+            this._id = id;
+        }
         if (typeof name != "string" || name == undefined) {
             throw new Error("Invalid name product");
         } else {
@@ -129,6 +134,7 @@ export class Product {
 
     toPersistenceObject() {
         return {
+            id: this._id,
             name: this._name,
             basePrice: this._basePrice,
             cost: this._cost,
