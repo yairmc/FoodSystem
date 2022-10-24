@@ -35,6 +35,15 @@ export class TicketRepository {
         return ticket;
     }
 
+    async getTicketByOrder(id) {
+        const ticket = await TicketModel.findOne({
+            where: {
+                orderId : id
+            }
+        });
+        return ticket;
+    }
+
     async getAllTickets() {
         const tickets = await TableModel.findAll({
             ticket: ['id'],
