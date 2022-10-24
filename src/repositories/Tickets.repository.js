@@ -8,7 +8,8 @@ export default class TicketRepository {
         const newTicket = dataValues;
         return new Ticket(newTicket.paymentAmount, newTicket.paymentReturn, newTicket.orderId, newTicket.branchId, newTicket.date);
     }
-
+ 
+    
     async updateTicket(id, ticket) {
         const ticketUpdated = await TicketModel.update({ paymentAmount: ticket.paymentAmount, paymentReturn: ticket.paymentReturn, orderId: ticket.orderId, branchId: ticket.branchId, date: ticket.date }, {
             where: { id }
