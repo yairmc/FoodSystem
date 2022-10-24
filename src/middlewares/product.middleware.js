@@ -1,5 +1,7 @@
 import { ProductIngredienttRepository } from "../repositories/ProductIngredient.model.js";
 import { IngredientRepository } from "../repositories/Ingredient.repository.js";
+import { ProductIngredientModel } from "../models/BarrelFile.js";
+
 const productIngredientRepository = new ProductIngredienttRepository();
 const ingredientRepository = new IngredientRepository();
 
@@ -18,14 +20,14 @@ const addProductIngredients = async (req, res) => {
             });
         });
 
-        res.status(200).json({msg: "Product added"});
+        res.status(200).json({ msg: "Product added" });
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: "Error while adding product" });
     }
 };
 
-const updateIngredients = async (req, res) => {
+const updateDemecrentIngredients = async (req, res) => {
     try {
         const { ingredientsInfo } = req;
         ingredientsInfo.forEach(async (ingredientAux) => {
@@ -33,10 +35,14 @@ const updateIngredients = async (req, res) => {
             ingredient.stock = ingredient.stock - quantity;
             await ingredientRepository.updateIngredient(ingredient.id, ingredient);
         });
-        res.status(200).json({msg: "Product added"});
+        res.status(200).json({ msg: "Product added" });
     } catch (error) {
-        res.status(500).json({msg: "Error while updating ingredients"});
+        res.status(500).json({ msg: "Error while updating ingredients" });
     }
 };
 
-export { addProductIngredients, updateIngredients };
+const updateProductIngredientInfo = async (req, res) => {
+    //TODO Hacer esta función para actualizar
+};
+
+export { addProductIngredients, updateDemecrentIngredients, updateProductIngredientInfo };

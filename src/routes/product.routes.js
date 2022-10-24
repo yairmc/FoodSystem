@@ -21,7 +21,7 @@ const {
 } = prodController;
 //Middlewares
 import { productMiddleware } from "../middlewares/index.js";
-const { addProductIngredients } = productMiddleware;
+const { addProductIngredients} = productMiddleware;
 
 prodRouter.get("/products", getAllProducts);
 prodRouter.post("/products",validateAddNewProduct(),addProduct,addProductIngredients);
