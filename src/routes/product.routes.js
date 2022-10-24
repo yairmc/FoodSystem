@@ -2,7 +2,14 @@ import express from "express";
 import { prodController } from "../controllers/index.js";
 const prodRouter = express.Router();
 
-import { validateAddNewProduct, validateUpdateProduct, validateDeleteProductById, validateGetProductById, validateGetProductByName, validateGetProductByType } from "../validators/product.validator.js";
+import {
+    validateAddNewProduct,
+    validateUpdateProduct,
+    validateDeleteProductById,
+    validateGetProductById,
+    validateGetProductByName,
+    validateGetProductByType,
+} from "../validators/product.validator.js";
 const {
     addProduct,
     deleteProduct,
@@ -10,11 +17,14 @@ const {
     getProductById,
     getProductByName,
     updateProduct,
-    getProductByType
+    getProductByType,
 } = prodController;
+//Middlewares
+import { productMiddleware } from "../middlewares/index.js";
+const { addProductIngredients} = productMiddleware;
 
 prodRouter.get("/products", getAllProducts);
-prodRouter.post("/products", validateAddNewProduct(), addProduct);
+prodRouter.post("/products",validateAddNewProduct(),addProduct,addProductIngredients);
 prodRouter.put("/products/:id", validateUpdateProduct(), updateProduct);
 prodRouter.delete("/products/:id", validateDeleteProductById(), deleteProduct);
 prodRouter.get("/products/name", validateGetProductByName(), getProductByName);
