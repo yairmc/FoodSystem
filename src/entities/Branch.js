@@ -1,47 +1,47 @@
 export class Branch {
-    constructor(sucursalName, sucursalAddress){
-        if (typeof sucursalName != "string" || sucursalName == undefined){
-            throw Error ("Invalid sucursal name")
+    constructor(branchName, branchAddress) {
+        if (typeof branchName != "string" || branchName == undefined) {
+            throw Error("Invalid branch name")
         }
-        else{
-            this._sucursalName = sucursalName;
+        else {
+            this._branchName = branchName;
         }
 
-        if(typeof sucursalAddress != "string" || sucursalAddress == undefined){
-            throw Error ("Invalid sucursal address")
-        }else{
-            this._sucursalAddress = sucursalAddress;
-        }
-    }
-
-    get sucursalName(){
-        return this._sucursalName;
-    }
-
-    set sucursalName(value){
-        if(value == undefined || typeof value !== "string"){
-            throw Error ("Invalid sucursal name")
-        }else{
-            this._sucursalName = value;
+        if (typeof branchAddress != "string" || branchAddress == undefined) {
+            throw Error("Invalid branch address")
+        } else {
+            this._branchAddress = branchAddress;
         }
     }
 
-    get sucursalAddress(){
-        return this._sucursalAddress;
+    get branchName() {
+        return this._branchName;
     }
 
-    set sucursalAddress(value){
-        if(value == undefined || typeof value !== "string"){
-            throw Error ("Invalid sucursal address")
-        }else{
-            this._sucursalAddress = value;
+    set branchName(value) {
+        if (value == undefined || typeof value !== "string") {
+            throw Error("Invalid branch name")
+        } else {
+            this._branchName = value;
         }
     }
 
-    toPersistenceObject(){
+    get branchAddress() {
+        return this._branchAddress;
+    }
+
+    set branchAddress(value) {
+        if (value == undefined || typeof value !== "string") {
+            throw Error("Invalid branch address")
+        } else {
+            this._branchAddress = value;
+        }
+    }
+
+    toPersistenceObject() {
         return {
-            sucursalName: this._sucursalName,
-            sucursalAddress: this._sucursalAddress,  
+            branchName: this._branchName,
+            branchAddress: this._branchAddress,
         }
     }
 }

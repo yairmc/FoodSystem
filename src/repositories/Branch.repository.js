@@ -1,17 +1,17 @@
-import { Branch }  from '../entities/Branch.js';
+import { Branch } from '../entities/Branch.js';
 import { BranchModel } from '../models/Branch.model.js';
 
-export class BranchRepository {
+export default class BranchRepository {
 
     async createBranch(branch) {
-        const newBranch = await BranchModel.create(branch);   
-        return new Branch(newBranch.sucursalName, newBranch.sucursalAddress).toPersistenceObject();
+        const newBranch = await BranchModel.create(branch);
+        return new Branch(newBranch.branchName, newBranch.branchAddress).toPersistenceObject();
     }
 
-    async updateBranch (id, branch) {
-        const branchUpdated = await BranchModel.update({sucursalName:branch.sucursalName, sucursalAddress:branch.sucursalAddress},{
+    async updateBranch(id, branch) {
+        const branchUpdated = await BranchModel.update({ branchName: branch.branchName, branchAddress: branch.branchAddress }, {
             where: {
-                id 
+                id
             }
         });
         return branchUpdated;
@@ -35,10 +35,19 @@ export class BranchRepository {
         return branch;
     }
 
+    async getBranchByName(branchName) {
+        const branch = await BranchModel.findOne({
+            where: {
+                branchName
+            }
+        });
+        return branch;
+    }
+
     async getAllBranches() {
         const allBranchs = await BranchModel.findAll({
             branch: ['id'],
-            attributes: ['sucursalName', 'sucursalAddress']
+            attributes: ['id', 'branchName', 'branchAddress']
         });
         return allBranchs;
     }
