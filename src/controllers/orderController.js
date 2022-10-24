@@ -34,7 +34,7 @@ const updateOrder = async (req, res) => {
     try {
         const { id } = req.params;
         const orderUpdated = await orderRepository.updateOrder(id, req.body);
-        if (orderUpdated) {
+        if (!orderUpdated) {
             return res.status(404).json({ msg: "This order wasn't updated" });
         }
         res.status(200).json({ msg: "Order updated" });

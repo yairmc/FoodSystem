@@ -7,6 +7,8 @@ import tableRouter from "./table.routes.js";
 import ticketRouter from "./ticket.routes.js";
 import ingredientRouter from "./ingredient.routes.js"
 import prodRouter from "./product.routes.js";
+import orderRouter from "./order.routes.js"
+import branchRouter from "./branch.routes.js"; "./branch.routes.js";
 
 RouterApp.use(userRouter);
 RouterApp.use(tableRouter);
@@ -15,6 +17,8 @@ RouterApp.use(authRouter);
 RouterApp.use(roleRouter);
 RouterApp.use(ingredientRouter);
 RouterApp.use(prodRouter);
+RouterApp.use(orderRouter)
+RouterApp.use(branchRouter);
 
 
 export default RouterApp;
