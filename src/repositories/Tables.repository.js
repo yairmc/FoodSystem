@@ -5,8 +5,8 @@ export default class TableRepository {
 
     async createTable(table) {
         const tableCreated = await TableModel.create(table);
-        const { name, availability, dinersNumber } = tableCreated;
-        return new Table(name, availability, dinersNumber);
+        const { number, availability, dinersNumber } = tableCreated;
+        return new Table(number, availability, dinersNumber);
     }
 
     async updateTable(id, table) {

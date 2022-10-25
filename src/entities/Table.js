@@ -1,6 +1,6 @@
 export class Table{
     constructor(number, availability, dinersNumber){
-        if(typeof number != "number" || number == undefined){
+        if(typeof  number == undefined){
             throw new Error("Ivalid id table");
         }else{
             this._number = number
