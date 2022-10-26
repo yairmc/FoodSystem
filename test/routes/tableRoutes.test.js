@@ -13,8 +13,6 @@ describe("Testing tableController", () => {
     }
     test('must add new Table', async () => {
         const { body } = await request.post("/tables").send(table)
-        console.log(body);
-        console.log(table);
         expect(body._number).toBe(table.number);
         expect(body._availability).toBe(table.availability);
         expect(body._dinersNumber).toBe(table.dinersNumber);

@@ -50,7 +50,6 @@ const getTicketByOrder = async (req, res) => {
         if (!ticket) return res.status(404).json({ msg: "This ticket doesn't exist" })
         res.status(200).json(ticket)
     } catch (error) {
-        console.log(error);
         res.status(500).json({ msg: "Error while queryng ticket" });
     }
 }
@@ -63,7 +62,6 @@ const getTicketByPeriod = async(req, res) => {
         if (!tickets) return res.status(404).json({ msg: "This ticket doesn't exist" })
         res.status(200).json(tickets)
     } catch (error) {
-        console.log(error);
         res.status(500).json({ msg: "Error while queryng all tickets"  });
     }
 }
@@ -75,7 +73,6 @@ const getAllTickets = async (req, res) => {
         const tickets = await ticketRepository.getAllTickets();
         res.status(200).json(tickets)
     } catch (error) {
-        console.log(error);
         return res.status(500).json({ msg: "Error while queryng all tickets" })
     }
 }

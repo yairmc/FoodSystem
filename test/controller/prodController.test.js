@@ -5,6 +5,24 @@ import { expect } from "@jest/globals";
 
 describe('Product controller test', () => {
     test('Must add new product', async () => {
+        const ingredients = [
+            {
+                ingredientId: 1,
+                quantity: 1
+            },
+            {
+                ingredientId: 2,
+                quantity: 1
+            },
+            {
+                ingredientId: 3,
+                quantity: 1
+            },
+            {
+                ingredientId: 4,
+                quantity: 1
+            }
+        ]
         const prodAux = new Product(
             `prod-${uuid()}`,
             20,
@@ -12,7 +30,8 @@ describe('Product controller test', () => {
             true,
             5,
             "packagedProduct",
-            10
+            10,
+            ingredients
         );
 
         const prodAdded = await addProduct(prodAux);
