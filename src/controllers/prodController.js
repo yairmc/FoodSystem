@@ -10,6 +10,7 @@ const addProduct = async (req, res, next) => {
         next();
     } catch (error) {
         console.log(error);
+        console.log(error);
         res.status(500).json({ msg: "Error while adding product" });
     }
 };

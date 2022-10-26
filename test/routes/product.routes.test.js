@@ -13,7 +13,13 @@ describe('Testing products routes and controllers', () => {
             availability: true,
             taxes: 450,
             type: "Prepared",
-            stock: 100
+            stock: 100,
+            ingredients:[
+                {ingredientId:1, quantity:1},
+                {ingredientId:2, quantity:1},
+                {ingredientId:3, quantity:1},
+                {ingredientId:4, quantity:1},
+            ]
         };
         const response = await request.post('/products').send(newProduct);
         idNewProd = response.body.id;

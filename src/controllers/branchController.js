@@ -27,6 +27,8 @@ const getBranchById = async (req, res) => {
         if (!branch) return res.status(404).json({ msg: "This branch doesn't exist" });
         res.status(200).json(branch);
     } catch (error) {
+        console.log(error);
+
         return res.status(500).json({ msg: "Error while querying branch" });
     }
 };
