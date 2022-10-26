@@ -6,6 +6,7 @@ const addTable = async (req, res) => {
         const tableAux = await tableRepository.createTable(req.body)
         res.status(200).json(tableAux)
     } catch (error) {
+        console.log(error);
         res.status(500).json({ msg: "Error while adding table" })
     }
 }

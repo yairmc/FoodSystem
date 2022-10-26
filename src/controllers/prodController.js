@@ -4,12 +4,11 @@ const prodRepository = new ProductRepository();
 const addProduct = async (req, res, next) => {
     try {
         const { name, basePrice, cost, availability, taxes, type, stock } = req.body;
-        const productToAdd = {name, basePrice, cost, availability, taxes, type, stock };
+        const productToAdd = { name, basePrice, cost, availability, taxes, type, stock };
         const prodAdded = await prodRepository.createProduct(productToAdd);
         req.idProduct = prodAdded.id;
-        next();
+        res.status(200).json(prodAdded)
     } catch (error) {
-        console.log(error);
         res.status(500).json({ msg: "Error while adding product" });
     }
 };
@@ -54,11 +53,11 @@ const getProductByType = async (req, res) => {
     }
 };
 
-const updateProduct = async (req, res,next) => {
+const updateProduct = async (req, res, next) => {
     try {
         const { id } = req.params;
         const { name, basePrice, cost, availability, taxes, type, stock } = req.body;
-        const productToAdd = {name, basePrice, cost, availability, taxes, type, stock };
+        const productToAdd = { name, basePrice, cost, availability, taxes, type, stock };
         const productsUpdated = await prodRepository.updateProduct(id, productToAdd);
         if (productsUpdated[0] === 0)
             return res.status(404).json({ msg: "This product wasn't updated" });

@@ -33,7 +33,7 @@ export default class TicketRepository {
     }
 
     async getTicketByOrder(orderId) {
-        const ticket = await TicketModel.findAll({
+        const ticket = await TicketModel.findOne({
             where: { orderId }
         });
         return ticket;

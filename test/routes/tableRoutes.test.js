@@ -1,21 +1,21 @@
 import { app } from "../../src/main";
 import supertest from "supertest";
 import { expect } from '@jest/globals'
-import { request } from "express";
+
+
 describe("Testing tableController", () => {
 
     const request = supertest(app);
     const table = {
-        number: 10,
+        number:Math.floor( Math.random()*3104),
         availability: true,
         dinersNumber: 2
     }
     test('must add new Table', async () => {
-        console.log(table);
         const { body } = await request.post("/tables").send(table)
-        expect(body.number).toBe(table.number);
-        expect(body.availability).toBe(table.availability);
-        expect(body.dinersNumber).toBe(table.dinersNumber);
+        expect(body._number).toBe(table.number);
+        expect(body._availability).toBe(table.availability);
+        expect(body._dinersNumber).toBe(table.dinersNumber);
     });
 
     test('must throw an error when we dont created a table thit a empty data', async () => {
@@ -31,7 +31,7 @@ describe("Testing tableController", () => {
 
     test('must return all tables', async () => {
         const { body } = await request.get("/tables");
-        expect(body.length).toBeGreaterThan(1);
+        expect(body.length).toBeGreaterThan(0);
     })
 
     test('must return table by id', async () => {
