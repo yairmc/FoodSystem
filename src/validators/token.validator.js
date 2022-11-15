@@ -11,11 +11,39 @@ const whiteList = [
 ]
 
 const endpointsWaither = [
-    "GET/products",
     "GET/orders",
     "POST/orders",
     "PUT/orders",
+    "DELETE/orders",
+
+    "GET/products",
+
+    "GET/ingredients",
+
+    "GET/tables",
+    "POST/tables",
+    "PUT/tables",
+    "DELETE/tables",
+
+    "GET/tickets",
+    "POST/tickets",
+    "PUT/tickets",
+    "DELETE/tickets",
+
+    "GET/users",
+
 ]
+
+const endpointsKitchen = [
+    "GET/orders",
+
+    "GET/products",
+
+    "GET/ingredients",
+
+    "GET/tables",
+
+];
 
 
 export function validateUrlRequest(req, res, next) {
@@ -29,7 +57,7 @@ export function validateUrlRequest(req, res, next) {
 
 
 export async function validateToken(req, res, next) {
-    if (!req.headers.authorization) return res.status(403).json({msg:"Access denied"});
+    if (!req.headers.authorization) return res.status(403).json({ msg: "Access denied" });
     const token = req.headers.authorization.split(' ')[1];
     const user = jwt.decode(token, process.env.SECRETKEY);
     const { roleId } = user;
@@ -37,8 +65,19 @@ export async function validateToken(req, res, next) {
     if (!roleFound) return res.status(403).json({ msg: "Access denied" });
 
     switch (roleFound.name) {
-        case "Kitchen": return validateAccessWaither(req, res, next);
+        case "Waither": return validateAccessWaither(req, res, next);
+            break;
+        case "Kitchen": return validateAccessKitchen(req, res, next);
     }
+    next();
+}
+export function validateAccessKitchen(req, res, next){
+    const { url, method } = req;
+    const urlFormated = url.split("/")[1];
+    const endPoint = `${method}/${urlFormated}`;
+
+    const isValidEndPoint = endpointsKitchen.find(end => end === endPoint);
+    if (!isValidEndPoint) return res.status(403).json({ msg: "Access denied" });
     next();
 }
 
