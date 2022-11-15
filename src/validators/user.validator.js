@@ -10,7 +10,6 @@ const validateAddNewUser = () => {
         check("userName", "userName is too long").isLength({ max: 50 }),
         check("password", "password is required").notEmpty(),
         check("password", "password is too short").isLength({ min: 5 }),
-        check("password", "password is too long").isLength({ max: 30 }),
         check("roleId", "id role is required").notEmpty(),
         (req, res, next) => {
             try {

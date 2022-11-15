@@ -1,6 +1,6 @@
 import { CHAR, STRING, INTEGER } from 'sequelize';
 import { sequelize } from "../config/connection.js"
-
+import { User } from '../entities/User.js';
 export const UserModel = sequelize.define("user", {
     id: {
         type: INTEGER,
@@ -18,7 +18,7 @@ export const UserModel = sequelize.define("user", {
         allowNull: false
     },
     password: {
-        type: CHAR(50),
+        type: CHAR(200),
         allowNull: false
     },
     roleId: {
@@ -29,4 +29,3 @@ export const UserModel = sequelize.define("user", {
     tableName: 'user',
     timestamps: false
 });
-
