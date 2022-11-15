@@ -1,9 +1,10 @@
 import { User } from './../entities/BarrelFile.js'
 import { UserModel } from '../models/User.model.js';
-
+import {hashSync} from "bcrypt";
 export default class UserRepository {
 
     async createUser(user) {
+        user.password = await hashSync(user.password,10);
         const userCreated = await UserModel.create(user);
         return new User(userCreated.name, userCreated.userName, userCreated.password, userCreated.roleId).toPersistenceObject();
     }
