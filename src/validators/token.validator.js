@@ -9,7 +9,7 @@ const whiteList = [
     "POST/auth",
     "GET/auth",
 ]
-
+ 
 const endpointsWaither = [
     "GET/orders",
     "POST/orders",
