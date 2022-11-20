@@ -12,6 +12,7 @@ authRouter.get("/auth", validateToken, (req, res) => {
 
 authRouter.post("/auth", async (req, res) => {
     const { userName, password } = req.body;
+
     try {
         const { dataValues: userFound } = await userRepo.getUserByUsername(userName);
         if (!userFound) return res.status(403).json({ msg: "Invalid credentials" });
@@ -25,11 +26,11 @@ authRouter.post("/auth", async (req, res) => {
         };
 
         const accessToken = generateAccessToken(user);
-
         res.json({ token: accessToken });
     } catch (error) {
         res.status(500).json({ msg: "Invalid credentials, error" });
     }
 });
+
 
 export default authRouter;
