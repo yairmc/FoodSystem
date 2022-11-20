@@ -12,7 +12,7 @@ import branchRouter from "./branch.routes.js";
 //Middlewares
 import {validateUrlRequest} from "../validators/token.validator.js";
 
-//RouterApp.use(validateUrlRequest);
+RouterApp.use(validateUrlRequest);
 RouterApp.use(authRouter)
 RouterApp.use(userRouter);
 RouterApp.use(tableRouter);
