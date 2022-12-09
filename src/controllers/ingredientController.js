@@ -6,6 +6,7 @@ const addIngredient = async (req, res) => {
         const newIngredient = await ingredientRepository.createIngredient(req.body)
         res.status(200).json(newIngredient);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ msg: "Error while adding ingredient" });
     }
 };
